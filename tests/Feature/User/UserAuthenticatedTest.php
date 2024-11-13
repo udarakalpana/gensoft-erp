@@ -6,13 +6,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 it('test user can login into the system', function () {
-
     // A - arrange
     $demoUser = User::factory()->create();
 
     $demoUserSignInCredentials = [
         'user_name' => $demoUser->user_name,
-        'user_password' => '12345678'
+        'user_password' => '12345678',
     ];
 
     // A
@@ -21,5 +20,4 @@ it('test user can login into the system', function () {
     // A
     $response->assertStatus(200);
     $response->assertJsonStructure([]);
-
 });
