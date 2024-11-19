@@ -3,7 +3,7 @@
 namespace App\Action\Auth;
 
 use App\Models\User;
-use Symfony\Component\HttpFoundation\Response;
+use App\Service\ResponseGenerator\ResponseGenerator;
 
 class CheckUser
 {
@@ -11,18 +11,18 @@ class CheckUser
     {
         $user = User::where('user_name', $validatedUserRequest['user_name'])->first();
 
-        if (!$user) {
-            return [
-                'status' => Response::HTTP_NOT_FOUND,
-                'message' => Response::$statusTexts[Response::HTTP_NOT_FOUND]
-            ];
+        if (! $user) {
+            return ResponseGenerator::notFoundResponse('User not found');
         }
 
-        return [
+        return ResponseGenerator::responseWithData(
+            'user_details',
+            [
             'first_name' => $user->first_name,
-            'last_name' => $user->last_name,
-            'user_name' => $user->user_name,
-            'role' => $user->role,
-        ];
+                'last_name' => $user->last_name,
+                'user_name' => $user->user_name,
+                'role' => $user->role,
+            ]
+        );
     }
 }

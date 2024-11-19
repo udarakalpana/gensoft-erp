@@ -1,10 +1,8 @@
 <?php
 
 use App\Models\User;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
 
@@ -13,8 +11,7 @@ function assertTest(
     int $status,
     array $jsonStructure,
     array $expected
-): void
-{
+): void {
     $response->assertStatus($status);
     $response->assertJsonStructure($jsonStructure);
     $response->assertExactJson($expected);
@@ -34,20 +31,25 @@ it('test user can login into the system', function () {
         $response,
         200,
         [
-        'first_name',
-        'last_name',
-        'user_name',
-        'role',
+        'status',
+        'user_details' => [
+            'first_name',
+            'last_name',
+            'user_name',
+            'role',
+        ],
         ],
         [
-            'first_name' => $demoUser->first_name,
-            'last_name' => $demoUser->last_name,
-            'user_name' => $demoUser->user_name,
-            'role' => $demoUser->role,
+            'status' => Response::HTTP_OK,
+            'user_details' => [
+                'first_name' => $demoUser->first_name,
+                'last_name' => $demoUser->last_name,
+                'user_name' => $demoUser->user_name,
+                'role' => $demoUser->role,
+            ],
         ]
     );
 });
-
 
 it('test return bad response if user not existing', function () {
     User::factory()->create();
@@ -57,19 +59,18 @@ it('test return bad response if user not existing', function () {
         'user_password' => '12345678',
     ];
 
-   $response = $this->post('api/user-sign-in', $demoUserSignInCredentials);
+    $response = $this->post('api/user-sign-in', $demoUserSignInCredentials);
 
     assertTest(
         $response,
         200,
         [
             'status',
-            'message'
+            'message',
         ],
         [
             'status' => Response::HTTP_NOT_FOUND,
-            'message' => Response::$statusTexts[Response::HTTP_NOT_FOUND]
+            'message' => 'User not found',
         ]
     );
-
 });
