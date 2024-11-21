@@ -20,6 +20,8 @@ function assertTest(
 it('test user can login into the system', function () {
     $demoUser = User::factory()->create();
 
+    $token = $demoUser->createToken($demoUser->user_name, ['server:demo'])->plainTextToken;
+
     $demoUserSignInCredentials = [
         'user_name' => $demoUser->user_name,
         'user_password' => '12345678',
@@ -42,10 +44,10 @@ it('test user can login into the system', function () {
         [
             'status' => Response::HTTP_OK,
             'user_details' => [
-                'first_name' => $demoUser->first_name,
-                'last_name' => $demoUser->last_name,
-                'user_name' => $demoUser->user_name,
-                'role' => $demoUser->role,
+            'first_name' => $demoUser->first_name,
+            'last_name' => $demoUser->last_name,
+             'user_name' => $demoUser->user_name,
+             'role' => $demoUser->role,
             ],
         ]
     );

@@ -5,6 +5,7 @@ namespace App\Action\Auth;
 use App\Models\User;
 use App\Service\ResponseGenerator\ResponseGenerator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class CheckUser
 {
@@ -17,6 +18,7 @@ class CheckUser
         }
 
         if ($this->isUserExisting($user, $validatedUserRequest)) {
+
             return ResponseGenerator::responseWithData(
                 'user_details',
                 [
@@ -24,6 +26,7 @@ class CheckUser
                     'last_name' => $user->last_name,
                     'user_name' => $user->user_name,
                     'role' => $user->role,
+                    'token' => GenerateAccessToken::execute($user),
                 ]
             );
         }
@@ -31,7 +34,7 @@ class CheckUser
         return ResponseGenerator::notFoundResponse('User not found');
     }
 
-    private function isUserExisting($user, $validatedUserRequest): bool
+    private function isUserExisting(User $user, array $validatedUserRequest): bool
     {
         return $user->user_name === $validatedUserRequest['user_name'] &&
             Hash::check($validatedUserRequest['user_password'], $user->password);
