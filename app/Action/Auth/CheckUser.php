@@ -4,6 +4,7 @@ namespace App\Action\Auth;
 
 use App\Models\User;
 use App\Service\ResponseGenerator\ResponseGenerator;
+use Illuminate\Support\Facades\Hash;
 
 class CheckUser
 {
@@ -15,14 +16,24 @@ class CheckUser
             return ResponseGenerator::notFoundResponse('User not found');
         }
 
-        return ResponseGenerator::responseWithData(
-            'user_details',
-            [
-            'first_name' => $user->first_name,
-                'last_name' => $user->last_name,
-                'user_name' => $user->user_name,
-                'role' => $user->role,
-            ]
-        );
+        if ($this->isUserExisting($user, $validatedUserRequest)) {
+            return ResponseGenerator::responseWithData(
+                'user_details',
+                [
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'user_name' => $user->user_name,
+                    'role' => $user->role,
+                ]
+            );
+        }
+
+        return ResponseGenerator::notFoundResponse('User not found');
+    }
+
+    private function isUserExisting($user, $validatedUserRequest): bool
+    {
+        return $user->user_name === $validatedUserRequest['user_name'] &&
+            Hash::check($validatedUserRequest['user_password'], $user->password);
     }
 }
