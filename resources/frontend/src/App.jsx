@@ -1,4 +1,22 @@
+import {useEffect} from "react";
+import axios from "axios";
+
 const App = () => {
+
+    useEffect(() => {
+        userSignIn()
+    }, []);
+
+    const userSignIn = async () => {
+        const response = await axios.post('http://127.0.0.1:8000/api/user-sign-in', {
+            user_name: 'demo user',
+            user_password: '12345678',
+        })
+
+        console.log(response)
+
+    }
+
     return (
         <>
             <section className="bg-gray-50 dark:bg-gray-900">
