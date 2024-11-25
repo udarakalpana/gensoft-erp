@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
+import {useDispatch} from "react-redux";
+import {UserLoginIn} from "../../utilities/api/user/UserLoginIn.js";
 
 const UserSignIn = () => {
     const [userSignInDetails, setUserSignInDetails] = useState({
         user_name: "",
         user_password: "",
     });
+    const dispatch = useDispatch()
 
     const handleInput = (event) => {
         setUserSignInDetails({
@@ -17,12 +20,7 @@ const UserSignIn = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        const response = await axios.post(
-            "/api/user-sign-in",
-            userSignInDetails,
-        );
-
-        console.log(response);
+        dispatch(UserLoginIn({userSignInDetails}))
     };
 
     return (
