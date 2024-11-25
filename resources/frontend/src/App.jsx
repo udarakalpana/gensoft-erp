@@ -1,46 +1,80 @@
-import {useEffect} from "react";
+import { useState } from "react";
 import axios from "axios";
 
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL
+axios.defaults.withCredentials = true;
+axios.defaults.headers.post['content_type'] = 'application/json'
+axios.defaults.headers.post['accept'] = 'application/json'
 const App = () => {
+    const [userSignInDetails, setUserSignInDetails] = useState({
+        user_name: "",
+        user_password: "",
+    });
 
-    useEffect(() => {
-        userSignIn()
-    }, []);
+    const handleInput = (event) => {
+        setUserSignInDetails({
+            ...userSignInDetails,
+            [event.target.name]: event.target.value,
+        });
+    };
 
-    const userSignIn = async () => {
-        const response = await axios.post('http://127.0.0.1:8000/api/user-sign-in', {
-            user_name: 'demo user',
-            user_password: '12345678',
-        })
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+
+        const response = await axios.post(
+            "/api/user-sign-in",
+            userSignInDetails,
+        );
 
         console.log(response)
-
-    }
+    };
 
     return (
         <>
             <section className="bg-gray-50 dark:bg-gray-900">
                 <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-                    <div
-                        className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                    <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                         <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
                             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
                                 Sign in to your account
                             </h1>
-                            <form className="space-y-4 md:space-y-6" action="#">
+                            <form
+                                className="space-y-4 md:space-y-6"
+                                onSubmit={handleSubmit}
+                            >
                                 <div>
-                                    <label htmlFor="email"
-                                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">User Name</label>
-                                    <input type="email" name="email" id="email"
-                                           className="input-field"
-                                           placeholder="name@company.com" required=""/>
+                                    <label
+                                        htmlFor="user_name"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        User Name
+                                    </label>
+                                    <input
+                                        type="text"
+                                        name="user_name"
+                                        id="user_name"
+                                        onChange={handleInput}
+                                        className="input-field"
+                                        placeholder="name@company.com"
+                                        required=""
+                                    />
                                 </div>
                                 <div>
-                                    <label htmlFor="password"
-                                           className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                                    <input type="password" name="password" id="password" placeholder="••••••••"
-                                           className="input-field"
-                                           required=""/>
+                                    <label
+                                        htmlFor="user_password"
+                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    >
+                                        Password
+                                    </label>
+                                    <input
+                                        type="password"
+                                        name="user_password"
+                                        id="user_password"
+                                        onChange={handleInput}
+                                        placeholder="••••••••"
+                                        className="input-field"
+                                        required=""
+                                    />
                                 </div>
                                 {/*<div className="flex items-center justify-between">*/}
                                 {/*    <div className="flex items-start">*/}
@@ -58,15 +92,18 @@ const App = () => {
                                 {/*       className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot*/}
                                 {/*        password?</a>*/}
                                 {/*</div>*/}
-                                <button type="submit"
-                                        className="dark-btn">Sign
-                                    in
+                                <button type="submit" className="dark-btn">
+                                    Sign in
                                 </button>
-                                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                                    Don’t have an account yet? <a href="#"
-                                                                  className="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign
-                                    up</a>
-                                </p>
+                                {/*<p className="text-sm font-light text-gray-500 dark:text-gray-400">*/}
+                                {/*    Don’t have an account yet?{" "}*/}
+                                {/*    <a*/}
+                                {/*        href="#"*/}
+                                {/*        className="font-medium text-primary-600 hover:underline dark:text-primary-500"*/}
+                                {/*    >*/}
+                                {/*        Sign up*/}
+                                {/*    </a>*/}
+                                {/*</p>*/}
                             </form>
                         </div>
                     </div>
