@@ -9,7 +9,7 @@ export const UserLoginIn = createAsyncThunk(
             "/api/user-sign-in",
             userSignInDetails,
         ).then((response) => {
-            console.log(response)
+            return response.data.user_details
         })
     }
 )
