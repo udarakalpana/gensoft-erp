@@ -20,7 +20,7 @@ const UserSignIn = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
 
-        dispatch(UserLoginIn({userSignInDetails}))
+        await dispatch(UserLoginIn({userSignInDetails}))
     };
 
     return (
