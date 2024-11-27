@@ -14,3 +14,8 @@ export interface UserPayload {
     role: number,
     token: string,
 }
+
+export interface UserSignInDetail {
+    user_name: string,
+    user_password: string,
+}

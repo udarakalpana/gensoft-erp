@@ -1,7 +1,7 @@
 import {persistReducer, persistStore} from "redux-persist";
 import {configureStore} from "@reduxjs/toolkit";
 import storage from 'redux-persist/lib/storage'
-import authSlice from "./src/utilities/auth/authSlice.ts";
+import authSlice from "./src/utilities/auth/authSlice";
 
 const persistConfig = {
     key: 'root',
@@ -22,6 +22,7 @@ const store = configureStore({
 
 const persistor = persistStore(store)
 
+export type AppDispatch = typeof store.dispatch
 export { store, persistor }
 
 

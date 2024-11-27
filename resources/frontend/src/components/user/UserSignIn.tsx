@@ -1,26 +1,28 @@
-import React, { useState } from "react";
-import axios from "axios";
-import {useDispatch} from "react-redux";
-import {UserLoginIn} from "../../utilities/api/user/UserLoginIn.js";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { UserLoginIn } from "../../utilities/api/user/UserLoginIn.js";
+import { UserSignInDetail } from "../../utilities/types/auth/auth";
+import { AppDispatch } from "../../../store";
 
 const UserSignIn = () => {
-    const [userSignInDetails, setUserSignInDetails] = useState({
-        user_name: "",
-        user_password: "",
-    });
-    const dispatch = useDispatch()
+    const [userSignInDetails, setUserSignInDetails] =
+        useState<UserSignInDetail>({
+            user_name: "",
+            user_password: "",
+        });
+    const dispatch = useDispatch<AppDispatch>();
 
-    const handleInput = (event) => {
+    const handleInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
         setUserSignInDetails({
             ...userSignInDetails,
             [event.target.name]: event.target.value,
         });
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
 
-        await dispatch(UserLoginIn({userSignInDetails}))
+        await dispatch(UserLoginIn({ userSignInDetails }));
     };
 
     return (
@@ -49,7 +51,7 @@ const UserSignIn = () => {
                                     onChange={handleInput}
                                     className="input-field"
                                     placeholder="name@company.com"
-                                    required=""
+                                    required={true}
                                 />
                             </div>
                             <div>
@@ -66,7 +68,7 @@ const UserSignIn = () => {
                                     onChange={handleInput}
                                     placeholder="••••••••"
                                     className="input-field"
-                                    required=""
+                                    required={true}
                                 />
                             </div>
                             {/*<div className="flex items-center justify-between">*/}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import UserSignIn from "./components/user/UserSignIn.jsx";
+import UserSignIn from "./components/user/UserSignIn";
 
 axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL;
 axios.defaults.withCredentials = true;

@@ -1,8 +1,14 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {createAsyncThunk} from "@reduxjs/toolkit";
 
+interface SignInPayload {
+    userSignInDetails: object
+}
 
-export const UserLoginIn = createAsyncThunk(
+export const UserLoginIn = createAsyncThunk<
+    AxiosResponse<any>,
+    SignInPayload
+>(
     'auth/login',
     async ({userSignInDetails}) => {
         return axios.post(
