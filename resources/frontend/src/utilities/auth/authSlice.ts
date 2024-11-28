@@ -3,6 +3,7 @@ import { UserLoginIn } from "../api/user/UserLoginIn";
 import { InitialState, UserPayload } from "../types/auth/auth";
 
 const initialState: InitialState = {
+    isAuthenticated: false,
     loading: false,
     userFirstName: "",
     userLastName: "",
@@ -40,6 +41,7 @@ const setPayloadForState = (state: InitialState, payload: UserPayload) => {
     state.userName = payload.user_name;
     state.userRole = payload.role;
     state.userToken = payload.token;
+    state.isAuthenticated = !!payload.token
 };
 
 export default authSlice.reducer;
