@@ -3,20 +3,16 @@
 namespace App\Http\Controllers\User;
 
 use App\Action\User\UserRegister;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegisterRequest;
-use App\Models\User;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
     public function userRegister(
         UserRegister $userRegister,
         UserRegisterRequest $request
-    ): JsonResponse
-    {
+    ): JsonResponse {
         $validatedUserRegisterRequest = $request->validated();
 
         if ($validatedUserRegisterRequest) {

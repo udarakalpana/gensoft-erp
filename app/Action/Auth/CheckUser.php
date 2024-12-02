@@ -3,9 +3,8 @@
 namespace App\Action\Auth;
 
 use App\Models\User;
-use App\Service\ResponseGenerator\ResponseGenerator;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
+use App\Service\ResponseGenerator\ResponseGenerator;
 
 class CheckUser
 {
@@ -18,7 +17,6 @@ class CheckUser
         }
 
         if ($this->isUserExisting($user, $validatedUserRequest)) {
-
             return ResponseGenerator::responseWithData(
                 'user_details',
                 [

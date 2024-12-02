@@ -7,6 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class UserRegisterRequest extends FormRequest
 {
     public array $commonRule = ['required', 'string', 'min:1', 'max:191'];
+
     /**
      * Determine if the user is authorized to make this request.
      */

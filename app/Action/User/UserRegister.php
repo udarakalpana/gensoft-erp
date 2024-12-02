@@ -3,11 +3,11 @@
 namespace App\Action\User;
 
 use App\Models\User;
-use App\Service\ResponseGenerator\ResponseGenerator;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
+use App\Service\ResponseGenerator\ResponseGenerator;
 
 class UserRegister
 {
@@ -28,8 +28,7 @@ class UserRegister
             DB::commit();
 
             return ResponseGenerator::sendSuccessResponse('User Registered Successfully');
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             Log::error($e->getMessage());
             DB::rollBack();
         }
