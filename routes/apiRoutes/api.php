@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\UserSignInController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserSignInController;
 
 Route::post('/user-sign-in', [UserSignInController::class, 'checkUserAuthentication']);
+
+Route::post('/user-register', [UserController::class, 'userRegister']);
