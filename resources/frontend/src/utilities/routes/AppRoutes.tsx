@@ -14,7 +14,7 @@ const AppRoutes:React.FC = () => {
     return (
        <Routes>
            <Route path="/" element={<UserSignIn />} />
-           <Route path="/dashboard/" element={
+           <Route path="/dashboard/*" element={
                checkUserRoleAndIsAuthenticated() ?
                    (<DemoUserDashboard />) :
                 <Navigate to="/" replace />
