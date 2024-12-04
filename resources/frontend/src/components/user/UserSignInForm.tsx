@@ -1,9 +1,5 @@
 import React from "react";
-
-interface UserSignInFormProps {
-    handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    handleSubmit: (event: React.FormEvent) => Promise<void>;
-}
+import { UserSignInFormProps } from "../../utilities/types/auth/auth";
 
 const UserSignInForm: React.FC<UserSignInFormProps> = ({
     handleInput,

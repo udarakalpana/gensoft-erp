@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface InitialState {
     isAuthenticated: boolean,
     loading: boolean,
@@ -20,3 +22,15 @@ export interface UserSignInDetail {
     user_name: string,
     user_password: string,
 }
+
+export interface UserSignInFormProps {
+    handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleSubmit: (event: React.FormEvent) => Promise<void>;
+}
+
+export interface EmployeeUserRegisterType {
+    handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleSubmit: (event: React.FormEvent) => Promise<void>;
+}
+
+

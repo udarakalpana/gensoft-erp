@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Service\GenerateErrorThrowMessage;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules;
 
 class UserRegisterRequest extends FormRequest
 {
@@ -29,7 +32,12 @@ class UserRegisterRequest extends FormRequest
             'user_name' => $this->commonRule,
             'email' => $this->commonRule,
             'role' => ['required', 'integer', 'min:0', 'max:10'],
-            'password' => $this->commonRule,
+            'password' => ['required', Rules\Password::default()],
         ];
+    }
+
+    public function failedValidation(Validator $validator): void
+    {
+        GenerateErrorThrowMessage::execute($validator);
     }
 }
