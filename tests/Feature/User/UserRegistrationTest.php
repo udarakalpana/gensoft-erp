@@ -2,10 +2,15 @@
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
 
 uses(RefreshDatabase::class);
 
 it('test user can register', function () {
+    $demoUser = User::factory()->create();
+
+    Sanctum::actingAs($demoUser, ['server:demo']);
+
     $employeeUser = User::factory()->make([
         'role' => 2,
         'password' => '12345678',
