@@ -81,14 +81,17 @@ const AddEmployeeForm: React.FC<EmployeeUserRegisterType> = ({
                             >
                                 User Role
                             </label>
-                            <input
-                                type="text"
+                            <select
                                 id="role"
                                 name="role"
                                 className="input-field"
                                 onChange={handleInput}
-                                required
-                            />
+                            >
+                                <option value='2'>Cashier User</option>
+                                <option value='3'>Customer Service</option>
+                                <option value='4'>Sales</option>
+                                <option value='5'>Management</option>
+                            </select>
                         </div>
                         <div className="mb-5">
                             <label

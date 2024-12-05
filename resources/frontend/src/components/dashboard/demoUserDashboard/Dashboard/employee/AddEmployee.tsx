@@ -8,7 +8,7 @@ const AddEmployee: React.FC = () => {
     const [employeeBasicDetails, setEmployeeBasicDetails] =
         useState<EmployeeBasicDataTypes>(EmployeeUserRegisterFromAttributes);
 
-    const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleInput = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = event.target;
 
         setEmployeeBasicDetails((prevState) => ({

@@ -29,7 +29,7 @@ export interface UserSignInFormProps {
 }
 
 export interface EmployeeUserRegisterType {
-    handleInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    handleInput: (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
     handleSubmit: (event: React.FormEvent) => Promise<void>;
 }
 
