@@ -5,8 +5,10 @@ import SelectInputField from "../../../../common/form/SelectInputField.tsx";
 import { userTypes } from "../../../../../utilities/dynamicValues/EmployeeTypes.ts";
 
 const AddEmployeeForm: React.FC<EmployeeUserRegisterType> = ({
+    isPasswordSame,
     handleInput,
     handleSubmit,
+    checkPasswordIsSame,
 }) => {
     return (
         <div className="p-4 sm:ml-64">
@@ -49,12 +51,23 @@ const AddEmployeeForm: React.FC<EmployeeUserRegisterType> = ({
                             labelName="Password"
                             handleInput={handleInput}
                         />
-                        <InputField
-                            filedType="password"
-                            filedName="confirm_password"
-                            labelName="Confirm Password"
-                            handleInput={handleInput}
-                        />
+                        <div className="mb-5">
+                            <label
+                                htmlFor='confirm_password'
+                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            >
+                                Confirm Password
+                            </label>
+                            <input
+                                type='password'
+                                id='confirm_password'
+                                name='confirm_password'
+                                className="input-field"
+                                onChange={checkPasswordIsSame}
+                                required
+                            />
+                        </div>
+                        {!isPasswordSame ? 'password is not same' : ''}
                         <button type="submit" className="dark-btn">
                             Register Employee
                         </button>
