@@ -1,6 +1,8 @@
 import React from "react";
 import { EmployeeUserRegisterType } from "../../../../../utilities/types/auth/auth";
 import InputField from "../../../../common/form/InputField.tsx";
+import SelectInputField from "../../../../common/form/SelectInputField.tsx";
+import { userTypes } from "../../../../../utilities/dynamicValues/EmployeeTypes.ts";
 
 const AddEmployeeForm: React.FC<EmployeeUserRegisterType> = ({
     handleInput,
@@ -35,25 +37,12 @@ const AddEmployeeForm: React.FC<EmployeeUserRegisterType> = ({
                             labelName="Email"
                             handleInput={handleInput}
                         />
-                        <div className="mb-5">
-                            <label
-                                htmlFor="role"
-                                className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                                User Role
-                            </label>
-                            <select
-                                id="role"
-                                name="role"
-                                className="input-field"
-                                onChange={handleInput}
-                            >
-                                <option value="2">Cashier User</option>
-                                <option value="3">Customer Service</option>
-                                <option value="4">Sales</option>
-                                <option value="5">Management</option>
-                            </select>
-                        </div>
+                        <SelectInputField
+                            filedName="role"
+                            labelName="User Role"
+                            options={userTypes}
+                            handleInput={handleInput}
+                        />
                         <InputField
                             filedType="password"
                             filedName="password"

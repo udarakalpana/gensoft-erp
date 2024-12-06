@@ -1,10 +1,10 @@
 import React from "react";
-import { InputFieldProps } from "../../../utilities/types/form/InputElementTypes";
+import { SelectInputFieldProps } from "../../../utilities/types/form/InputElementTypes";
 
-const InputField: React.FC<InputFieldProps> = ({
-    filedType,
+const SelectInputField: React.FC<SelectInputFieldProps> = ({
     filedName,
     labelName,
+    options,
     handleInput,
 }) => {
     return (
@@ -15,16 +15,20 @@ const InputField: React.FC<InputFieldProps> = ({
             >
                 {labelName}
             </label>
-            <input
-                type={filedType}
+            <select
                 id={filedName}
                 name={filedName}
                 className="input-field"
                 onChange={handleInput}
-                required
-            />
+            >
+                {options.map((option) => (
+                    <option key={option.value} value={option.value}>
+                        {option.option_name}
+                    </option>
+                ))}
+            </select>
         </div>
     );
 };
 
-export default InputField;
+export default SelectInputField;
