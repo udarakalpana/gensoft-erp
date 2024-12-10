@@ -9,7 +9,9 @@ use Illuminate\Validation\Rules;
 
 class UserRegisterRequest extends FormRequest
 {
-    public array $commonRule = ['required', 'string', 'min:1', 'max:191'];
+    private array $commonRulesWithRequired = ['required', 'string', 'min:1', 'max:191'];
+
+    private array $commonRulesWithoutRequired =  ['string', 'min:1', 'max:191'];
 
     /**
      * Determine if the user is authorized to make this request.
@@ -27,10 +29,22 @@ class UserRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'first_name' => $this->commonRule,
-            'last_name' => $this->commonRule,
-            'user_name' => $this->commonRule,
-            'email' => $this->commonRule,
+            'title' => $this->commonRulesWithRequired,
+            'initials' => $this->commonRulesWithoutRequired,
+            'first_name' => $this->commonRulesWithRequired,
+            'middle_name' => $this->commonRulesWithoutRequired,
+            'last_name' => $this->commonRulesWithRequired,
+            'nickname' => $this->commonRulesWithoutRequired,
+            'date_of_birth' => $this->commonRulesWithoutRequired,
+            'place_of_birth' => $this->commonRulesWithoutRequired,
+            'gender' => $this->commonRulesWithoutRequired,
+            'marital_status' => $this->commonRulesWithoutRequired,
+            'blood_type' =>$this->commonRulesWithoutRequired,
+            'citizenship' => $this->commonRulesWithoutRequired,
+            'photo' => $this->commonRulesWithoutRequired,
+
+            'user_name' => $this->commonRulesWithRequired,
+            'email' => $this->commonRulesWithRequired,
             'role' => ['required', 'integer', 'min:0', 'max:10'],
             'password' => ['required', Rules\Password::default()],
         ];

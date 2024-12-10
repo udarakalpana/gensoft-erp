@@ -6,6 +6,7 @@ use App\Action\User\UserRegister;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRegisterRequest;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
