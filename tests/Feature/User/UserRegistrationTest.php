@@ -5,6 +5,7 @@ use App\Models\UserContactInformation;
 use App\Models\UserResidentialDetail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
+use Symfony\Component\HttpFoundation\Response;
 
 uses(RefreshDatabase::class);
 
@@ -66,4 +67,41 @@ it('test user can register', function () {
         'linkedin_account' => $employeeUserContactInformation['linkedin_account'],
         'personal_website' => $employeeUserContactInformation['personal_website'],
     ]);
+});
+
+it('test return bad response if user registration is getting failed', function () {
+
+    $demoUser = User::factory()->create();
+
+    Sanctum::actingAs($demoUser, ['server:demo']);
+
+    $employeeUser = User::factory()->make([
+        'user_name' => '',
+        'role' => 2,
+        'password' => '12345678',
+    ])->toArray();
+
+    $employeeUserResidentialDetails = UserResidentialDetail::factory()->make()->toArray();
+    $employeeUserContactInformation = UserContactInformation::factory()->make()->toArray();
+
+    $employeeUserAllDetails =  collect($employeeUser)
+        ->merge($employeeUserResidentialDetails)
+        ->merge($employeeUserContactInformation)
+        ->toArray();
+
+    $response = $this->post('api/user-register', $employeeUserAllDetails);
+
+
+    $response->assertStatus(200);
+    $response->assertJsonStructure([
+        'status',
+        'error'
+    ]);
+    $response->assertExactJson([
+        'status' => Response::HTTP_UNPROCESSABLE_ENTITY,
+        'error' => [
+            'user_name' => ['The user name field is required.']
+        ],
+    ]);
+
 });
