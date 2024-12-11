@@ -1,6 +1,8 @@
 <?php
 
 use App\Models\User;
+use App\Models\UserContactInformation;
+use App\Models\UserResidentialDetail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 
@@ -16,7 +18,15 @@ it('test user can register', function () {
         'password' => '12345678',
     ])->toArray();
 
-    $response = $this->post('api/user-register', $employeeUser);
+    $employeeUserResidentialDetails = UserResidentialDetail::factory()->make()->toArray();
+    $employeeUserContactInformation = UserContactInformation::factory()->make()->toArray();
+
+    $employeeUserAllDetails =  collect($employeeUser)
+        ->merge($employeeUserResidentialDetails)
+        ->merge($employeeUserContactInformation)
+        ->toArray();
+
+    $response = $this->post('api/user-register', $employeeUserAllDetails);
 
     $response->assertStatus(200);
     $response->assertJsonStructure([
@@ -40,5 +50,20 @@ it('test user can register', function () {
         'user_name' => $employeeUser['user_name'],
         'email' => $employeeUser['email'],
         'role' => $employeeUser['role'],
+    ]);
+    $this->assertDatabaseHas('user_residential_details', [
+        'address_line_1' => $employeeUserResidentialDetails['address_line_1'],
+        'address_line_2' => $employeeUserResidentialDetails['address_line_2'],
+        'city' => $employeeUserResidentialDetails['city'],
+        'country' => $employeeUserResidentialDetails['country'],
+        'postal_code' => $employeeUserResidentialDetails['postal_code'],
+    ]);
+    $this->assertDatabaseHas('user_contact_informations', [
+        'mobile_number' => $employeeUserContactInformation['mobile_number'],
+        'telephone_number' => $employeeUserContactInformation['telephone_number'],
+        'telegram_id' => $employeeUserContactInformation['telegram_id'],
+        'email_address' => $employeeUserContactInformation['email_address'],
+        'linkedin_account' => $employeeUserContactInformation['linkedin_account'],
+        'personal_website' => $employeeUserContactInformation['personal_website'],
     ]);
 });

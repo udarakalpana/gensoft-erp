@@ -3,6 +3,8 @@
 namespace App\Action\User;
 
 use App\Models\User;
+use App\Models\UserContactInformation;
+use App\Models\UserResidentialDetail;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -15,7 +17,7 @@ class UserRegister
     {
         DB::beginTransaction();
         try {
-            User::create([
+            $user = User::create([
                 'id' => Str::uuid(),
                 'title' => $validatedUserRegisterRequest['title'],
                 'initials' => $validatedUserRegisterRequest['initials'],
@@ -35,6 +37,27 @@ class UserRegister
                 'role' => $validatedUserRegisterRequest['role'],
                 'password' => Hash::make($validatedUserRegisterRequest['password']),
             ]);
+
+            if ($user->id) {
+                UserResidentialDetail::create([
+                    'user_id' => $user->id,
+                    'address_line_1' => $validatedUserRegisterRequest['address_line_1'],
+                    'address_line_2' => $validatedUserRegisterRequest['address_line_2'],
+                    'city' => $validatedUserRegisterRequest['city'],
+                    'country' => $validatedUserRegisterRequest['country'],
+                    'postal_code' => $validatedUserRegisterRequest['postal_code'],
+                ]);
+
+                UserContactInformation::create([
+                    'user_id' => $user->id,
+                    'mobile_number' => $validatedUserRegisterRequest['mobile_number'],
+                    'telephone_number' => $validatedUserRegisterRequest['telephone_number'],
+                    'telegram_id' => $validatedUserRegisterRequest['telegram_id'],
+                    'email_address' => $validatedUserRegisterRequest['email_address'],
+                    'linkedin_account' => $validatedUserRegisterRequest['linkedin_account'],
+                    'personal_website' => $validatedUserRegisterRequest['personal_website'],
+                ]);
+            }
 
             DB::commit();
 

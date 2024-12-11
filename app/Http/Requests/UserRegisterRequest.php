@@ -47,6 +47,21 @@ class UserRegisterRequest extends FormRequest
             'email' => $this->commonRulesWithRequired,
             'role' => ['required', 'integer', 'min:0', 'max:10'],
             'password' => ['required', Rules\Password::default()],
+
+            // User residentials details
+            'address_line_1' => $this->commonRulesWithoutRequired,
+            'address_line_2' => $this->commonRulesWithoutRequired,
+            'city' => $this->commonRulesWithoutRequired,
+            'country' => $this->commonRulesWithoutRequired,
+            'postal_code' => $this->commonRulesWithoutRequired,
+
+            // User contact information
+            'mobile_number' => $this->commonRulesWithoutRequired,
+            'telephone_number' => $this->commonRulesWithoutRequired,
+            'telegram_id' => $this->commonRulesWithoutRequired,
+            'email_address' => $this->commonRulesWithoutRequired,
+            'linkedin_account' => $this->commonRulesWithoutRequired,
+            'personal_website' => $this->commonRulesWithoutRequired,
         ];
     }
 

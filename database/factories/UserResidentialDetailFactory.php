@@ -17,10 +17,8 @@ class UserResidentialDetailFactory extends Factory
      */
     public function definition(): array
     {
-        $user = User::factory()->create();
 
         return [
-            'user_id' => $user->id,
             'address_line_1' => $this->faker->address(),
             'address_line_2' => $this->faker->address(),
             'city' => $this->faker->city(),

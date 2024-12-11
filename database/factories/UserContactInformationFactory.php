@@ -17,10 +17,8 @@ class UserContactInformationFactory extends Factory
      */
     public function definition(): array
     {
-        $user = User::factory()->create();
 
         return [
-            'user_id' => $user->id,
             'mobile_number' => $this->faker->phoneNumber(),
             'telephone_number' => $this->faker->phoneNumber(),
             'telegram_id' => $this->faker->phoneNumber(),
