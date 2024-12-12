@@ -22,12 +22,17 @@ it('test user can register', function () {
     $employeeUserResidentialDetails = UserResidentialDetail::factory()->make()->toArray();
     $employeeUserContactInformation = UserContactInformation::factory()->make()->toArray();
 
-    $employeeUserAllDetails =  collect($employeeUser)
-        ->merge($employeeUserResidentialDetails)
-        ->merge($employeeUserContactInformation)
-        ->toArray();
+    $employeeUserAllDetails = [];
 
-    $response = $this->post('api/user-register', $employeeUserAllDetails);
+    $employeeUserAllFormSubmitData =  collect([
+        $employeeUser,
+        $employeeUserResidentialDetails,
+        $employeeUserContactInformation
+    ])->flatMap(function ($item) use ($employeeUserAllDetails) {
+        return array_merge($item, $employeeUserAllDetails);
+    })->toArray();
+
+    $response = $this->post('api/user-register', $employeeUserAllFormSubmitData);
 
     $response->assertStatus(200);
     $response->assertJsonStructure([
