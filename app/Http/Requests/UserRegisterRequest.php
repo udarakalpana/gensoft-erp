@@ -13,6 +13,8 @@ class UserRegisterRequest extends FormRequest
 
     private array $commonRulesWithoutRequired =  ['string', 'min:1', 'max:191'];
 
+    private array $commonNumberRulesWithoutRequired = ['string', 'min:1', 'max:8'];
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -62,6 +64,22 @@ class UserRegisterRequest extends FormRequest
             'email_address' => $this->commonRulesWithoutRequired,
             'linkedin_account' => $this->commonRulesWithoutRequired,
             'personal_website' => $this->commonRulesWithoutRequired,
+
+            // User government identification details
+            'epf' => $this->commonNumberRulesWithoutRequired,
+            'tax_file' => $this->commonNumberRulesWithoutRequired,
+            'tin' => $this->commonNumberRulesWithoutRequired,
+            'nic' => $this->commonNumberRulesWithoutRequired,
+            'driving_license' => $this->commonNumberRulesWithoutRequired,
+            'passport_number' => $this->commonNumberRulesWithoutRequired,
+
+            // User emegency person details
+            'name' => $this->commonRulesWithoutRequired,
+            'address' => $this->commonRulesWithoutRequired,
+            'emegerncy_person_telephone_number' => $this->commonRulesWithoutRequired,
+            'emegerncy_person_mobile_number' => $this->commonRulesWithoutRequired,
+            'emegerncy_person_email_address' => $this->commonRulesWithoutRequired,
+            'relationship' => $this->commonRulesWithoutRequired,
         ];
     }
 

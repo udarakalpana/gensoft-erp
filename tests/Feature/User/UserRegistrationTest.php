@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 uses(RefreshDatabase::class);
 
+// ***********************************************
+// Need to refactor this test
+// ***********************************************
+
 it('test user can register', function () {
     $demoUser = User::factory()->create();
 
@@ -78,6 +82,22 @@ it('test user can register', function () {
         'email_address' => $employeeUserContactInformation['email_address'],
         'linkedin_account' => $employeeUserContactInformation['linkedin_account'],
         'personal_website' => $employeeUserContactInformation['personal_website'],
+    ]);
+    $this->assertDatabaseHas('government_identification_details', [
+        'epf' => $employeeUserGovernmentIndentificationDetails['epf'],
+        'tax_file' => $employeeUserGovernmentIndentificationDetails['tax_file'],
+        'tin' => $employeeUserGovernmentIndentificationDetails['tin'],
+        'nic' => $employeeUserGovernmentIndentificationDetails['nic'],
+        'driving_license' => $employeeUserGovernmentIndentificationDetails['driving_license'],
+        'passport_number' => $employeeUserGovernmentIndentificationDetails['passport_number'],
+    ]);
+    $this->assertDatabaseHas('emegerncy_person_contact_details', [
+        'name' => $employeeUserEmegerncyContactDetails['name'],
+        'address' => $employeeUserEmegerncyContactDetails['address'],
+        'emegerncy_person_telephone_number' => $employeeUserEmegerncyContactDetails['emegerncy_person_telephone_number'],
+        'emegerncy_person_mobile_number' => $employeeUserEmegerncyContactDetails['emegerncy_person_mobile_number'],
+        'emegerncy_person_email_address' => $employeeUserEmegerncyContactDetails['emegerncy_person_email_address'],
+        'relationship' => $employeeUserEmegerncyContactDetails['relationship'],
     ]);
 });
 

@@ -2,6 +2,8 @@
 
 namespace App\Action\User;
 
+use App\Models\EmegencyContactPersonDetail;
+use App\Models\GovernmentIdentificationDetail;
 use App\Models\User;
 use App\Models\UserContactInformation;
 use App\Models\UserResidentialDetail;
@@ -10,7 +12,20 @@ use Illuminate\Support\Str;
 
 class UserDetailsStore
 {
+    // ***********************************************
+    // Need to write unit test for this class and need to refactor this class applying laravel dispatching
+    // ***********************************************
     public function UserBasicDetailsStore(array $validatedUserRegisterRequest): void
+    {
+        $userId = $this->StoreUserBasicDetailsAndGetUserId($validatedUserRegisterRequest);
+
+       $this->UserResidentialDetailStore($userId, $validatedUserRegisterRequest);
+       $this->UserContactInformationStore($userId, $validatedUserRegisterRequest);
+       $this->UserGovernmentIdentificationDetailsStore($userId, $validatedUserRegisterRequest);
+       $this->UserEmegerncyPersonDetailsStore($userId, $validatedUserRegisterRequest);
+    }
+
+    private function StoreUserBasicDetailsAndGetUserId(array $validatedUserRegisterRequest): string
     {
         $user = User::create([
             'id' => Str::uuid(),
@@ -33,11 +48,10 @@ class UserDetailsStore
             'password' => Hash::make($validatedUserRegisterRequest['password']),
         ]);
 
-       $this->UserResidentialDetailStore($user->id, $validatedUserRegisterRequest);
-       $this->UserContactInformationStore($user->id, $validatedUserRegisterRequest);
+        return $user->id;
     }
 
-    public function UserResidentialDetailStore(string $userId, array $validatedUserRegisterRequest): void
+    private function UserResidentialDetailStore(string $userId, array $validatedUserRegisterRequest): void
     {
         UserResidentialDetail::create([
             'user_id' => $userId,
@@ -49,7 +63,7 @@ class UserDetailsStore
         ]);
     }
 
-    public static function UserContactInformationStore(string $userId, array $validatedUserRegisterRequest): void
+    private static function UserContactInformationStore(string $userId, array $validatedUserRegisterRequest): void
     {
         UserContactInformation::create([
             'user_id' => $userId,
@@ -59,6 +73,33 @@ class UserDetailsStore
             'email_address' => $validatedUserRegisterRequest['email_address'],
             'linkedin_account' => $validatedUserRegisterRequest['linkedin_account'],
             'personal_website' => $validatedUserRegisterRequest['personal_website'],
+        ]);
+    }
+
+    private function UserGovernmentIdentificationDetailsStore(string $userId, array $validatedUserRegisterRequest): void
+    {
+        GovernmentIdentificationDetail::create([
+            'user_id' => $userId,
+            'epf' => $validatedUserRegisterRequest['epf'],
+            'tax_file' => $validatedUserRegisterRequest['tax_file'],
+            'tin' => $validatedUserRegisterRequest['tin'],
+            'nic' => $validatedUserRegisterRequest['nic'],
+            'driving_license' => $validatedUserRegisterRequest['driving_license'],
+            'passport_number' => $validatedUserRegisterRequest['passport_number'],
+        ]);
+
+    }
+
+    private function UserEmegerncyPersonDetailsStore(string $userId, array $validatedUserRegisterRequest): void
+    {
+        EmegencyContactPersonDetail::create([
+            'user_id' => $userId,
+            'name' => $validatedUserRegisterRequest['name'],
+            'address' => $validatedUserRegisterRequest['address'],
+            'emegerncy_person_telephone_number' => $validatedUserRegisterRequest['emegerncy_person_telephone_number'],
+            'emegerncy_person_mobile_number' => $validatedUserRegisterRequest['emegerncy_person_mobile_number'],
+            'emegerncy_person_email_address' => $validatedUserRegisterRequest['emegerncy_person_email_address'],
+            'relationship' => $validatedUserRegisterRequest['relationship'],
         ]);
     }
 }
