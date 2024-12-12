@@ -19,9 +19,9 @@ class EmegencyContactPersonDetailFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'address' => $this->faker->address(),
-            'telephone_number' => $this->faker->phoneNumber(),
-            'mobile_number' => $this->faker->phoneNumber(),
-            'email_address' => $this->faker->email(),
+            'emegerncy_person_telephone_number' => $this->faker->phoneNumber(),
+            'emegerncy_person_mobile_number' => $this->faker->phoneNumber(),
+            'emegerncy_person_email_address' => $this->faker->email(),
             'relationship' => $this->faker->randomElement(['sister', 'mother', 'father']),
         ];
     }

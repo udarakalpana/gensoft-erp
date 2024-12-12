@@ -18,9 +18,9 @@ class EmegencyContactPersonDetail extends Model
         'user_id',
         'name',
         'address',
-        'telephone_number',
-        'mobile_number',
-        'email_address',
+        'emegerncy_person_telephone_number',
+        'emegerncy_person_mobile_number',
+        'emegerncy_person_email_address',
         'relationship',
     ];
 }

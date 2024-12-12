@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\EmegencyContactPersonDetail;
+use App\Models\GovernmentIdentificationDetail;
 use App\Models\User;
 use App\Models\UserContactInformation;
 use App\Models\UserResidentialDetail;
@@ -21,13 +23,18 @@ it('test user can register', function () {
 
     $employeeUserResidentialDetails = UserResidentialDetail::factory()->make()->toArray();
     $employeeUserContactInformation = UserContactInformation::factory()->make()->toArray();
+    $employeeUserGovernmentIndentificationDetails = GovernmentIdentificationDetail::factory()->make()->toArray();
+    $employeeUserEmegerncyContactDetails = EmegencyContactPersonDetail::factory()->make()->toArray();
+
 
     $employeeUserAllDetails = [];
 
     $employeeUserAllFormSubmitData =  collect([
         $employeeUser,
         $employeeUserResidentialDetails,
-        $employeeUserContactInformation
+        $employeeUserContactInformation,
+        $employeeUserGovernmentIndentificationDetails,
+        $employeeUserEmegerncyContactDetails,
     ])->flatMap(function ($item) use ($employeeUserAllDetails) {
         return array_merge($item, $employeeUserAllDetails);
     })->toArray();
