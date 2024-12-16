@@ -9,14 +9,14 @@ const AddEmployee: React.FC = () => {
         useState<EmployeeBasicDataTypes>(EmployeeUserRegisterFromAttributes);
     const [isPasswordSame, setIsPasswordSame] = useState<boolean>(false)
 
-    const handleInput = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const { name, value } = event.target;
-
-        setEmployeeBasicDetails((prevState) => ({
-            ...prevState,
-            [name]: value,
-        }));
-    };
+    // const handleInput = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    //     const { name, value } = event.target;
+    //
+    //     setEmployeeBasicDetails((prevState) => ({
+    //         ...prevState,
+    //         [name]: value,
+    //     }));
+    // };
 
     const checkPasswordIsSame = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (employeeBasicDetails.password === event.target.value) {
@@ -27,18 +27,16 @@ const AddEmployee: React.FC = () => {
         setIsPasswordSame(false)
     }
 
-    const handleSubmit = async (event: React.FormEvent) => {
-        event.preventDefault();
-
-        const createEmployeeResponse =
-            await createEmployeeUser(employeeBasicDetails);
-    };
+    // const handleSubmit = async (event: React.FormEvent) => {
+    //     event.preventDefault();
+    //
+    //     const createEmployeeResponse =
+    //         await createEmployeeUser(employeeBasicDetails);
+    // };
 
     return (
         <AddEmployeeForm
             isPasswordSame={isPasswordSame}
-            handleInput={handleInput}
-            handleSubmit={handleSubmit}
             checkPasswordIsSame={checkPasswordIsSame}
         />
     );

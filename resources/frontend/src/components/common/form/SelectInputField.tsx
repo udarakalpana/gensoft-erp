@@ -18,7 +18,7 @@ const SelectInputField: React.FC<SelectInputFieldProps> = ({
             <select
                 id={filedName}
                 name={filedName}
-                className="input-field"
+                className="form-input_field"
                 onChange={handleInput}
             >
                 {options.map((option) => (

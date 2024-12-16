@@ -19,7 +19,7 @@ const InputField: React.FC<InputFieldProps> = ({
                 type={filedType}
                 id={filedName}
                 name={filedName}
-                className="input-field"
+                className="form-input_field"
                 onChange={handleInput}
                 required
             />
