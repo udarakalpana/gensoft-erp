@@ -3,8 +3,9 @@ import EmployeeBasicDetailsForm from "./employeeBasicDetails/EmployeeBasicDetail
 import EmployeeContactDetails from "./employeeContactDetails/EmployeeContactDetails.tsx";
 import {
     ValidFormMapperNumber,
-    EmployeeDetailsFromMapperType
+    EmployeeDetailsFromMapperType,
 } from "../../../../../utilities/types/form/UserRegistrationForm/addEmployeeFormTypes";
+import EmployeeResidentialDetails from "./employeeResidentialDetails/EmployeeResidentialDetails.tsx";
 
 const AddEmployeeForm: React.FC = () => {
     const [currentForm, setCurrentForm] = useState<number>(1);
@@ -27,7 +28,18 @@ const AddEmployeeForm: React.FC = () => {
         2: (
             <EmployeeContactDetails
                 handleNextEmployeeDetailsForm={handleNextEmployeeDetailsForm}
-                handlePreviousEmployeeDetailsForm={handlePreviousEmployeeDetailsForm}
+                handlePreviousEmployeeDetailsForm={
+                    handlePreviousEmployeeDetailsForm
+                }
+            />
+        ),
+
+        3: (
+            <EmployeeResidentialDetails
+                handleNextEmployeeDetailsForm={handleNextEmployeeDetailsForm}
+                handlePreviousEmployeeDetailsForm={
+                    handlePreviousEmployeeDetailsForm
+                }
             />
         ),
     };
