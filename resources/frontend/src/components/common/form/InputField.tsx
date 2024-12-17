@@ -21,7 +21,6 @@ const InputField: React.FC<InputFieldProps> = ({
                 name={filedName}
                 className="form-input_field"
                 onChange={handleInput}
-                required
             />
         </div>
     );

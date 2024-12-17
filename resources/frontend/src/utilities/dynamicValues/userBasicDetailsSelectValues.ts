@@ -21,7 +21,6 @@ export const bloodTypes: UserTypes[] = [
     { value: "A+", option_name: "A+" },
     { value: "A-", option_name: "A-" },
     { value: "B+", option_name: "B+" },
-    { value: "A+", option_name: "B-" },
     { value: "O+", option_name: "O+" },
     { value: "O-", option_name: "O-" },
 ];
