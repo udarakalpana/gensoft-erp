@@ -4,7 +4,7 @@ import EmployeeContactDetails from "./employeeContactDetails/EmployeeContactDeta
 import {
     ValidFormMapperNumber,
     EmployeeDetailsFromMapperType,
-} from "../../../../../utilities/types/form/UserRegistrationForm/addEmployeeFormTypes";
+} from "../../../../../../utilities/types/form/UserRegistrationForm/addEmployeeFormTypes";
 import EmployeeResidentialDetails from "./employeeResidentialDetails/EmployeeResidentialDetails.tsx";
 
 const AddEmployeeForm: React.FC = () => {

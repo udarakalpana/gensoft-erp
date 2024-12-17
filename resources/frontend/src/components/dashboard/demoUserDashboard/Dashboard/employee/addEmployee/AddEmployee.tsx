@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { createEmployeeUser } from "../../../../../utilities/api/user/createEmployeeUser.ts";
+import { createEmployeeUser } from "../../../../../../utilities/api/user/createEmployeeUser.ts";
 import AddEmployeeForm from "./AddEmployeeForm.tsx";
-import { EmployeeBasicDataTypes } from "../../../../../utilities/types/form/UserRegistrationForm/employeeUserRegisterTypes";
-import { EmployeeUserRegisterFromAttributes } from "../../../../../utilities/form/EmployeeUserRegisterFormAttributes.ts";
+import { EmployeeBasicDataTypes } from "../../../../../../utilities/types/form/UserRegistrationForm/employeeUserRegisterTypes";
+import { EmployeeUserRegisterFromAttributes } from "../../../../../../utilities/form/EmployeeUserRegisterFormAttributes.ts";
 
 const AddEmployee: React.FC = () => {
     const [employeeBasicDetails, setEmployeeBasicDetails] =

@@ -1,6 +1,8 @@
 import React from "react";
-import InputField from "../../../../../common/form/InputField.tsx";
-import { EmployeeContactDetailsFormProp } from "../../../../../../utilities/types/form/UserRegistrationForm/employeeContactDetailsFormTypes";
+import InputField from "../../../../../../common/form/InputField.tsx";
+import { EmployeeContactDetailsFormProp } from "../../../../../../../utilities/types/form/UserRegistrationForm/employeeContactDetailsFormTypes";
+import FormBackButton from "../common/FormBackButton.tsx";
+import FormSubmitButton from "../common/FormSubmitButton.tsx";
 
 const EmployeeResidentialDetails: React.FC<EmployeeContactDetailsFormProp> = ({
     handleNextEmployeeDetailsForm,
@@ -54,17 +56,13 @@ const EmployeeResidentialDetails: React.FC<EmployeeContactDetailsFormProp> = ({
                         handleInput={handleBasicDetailsInputField}
                     />
                 </div>
-                <button
-                    type="button"
-                    className="red-btn"
-                    onClick={handlePreviousEmployeeDetailsForm}
-                >
-                    Change Employee Contact Details
-                </button>
-
-                <button type="submit" className="dark-btn mt-4">
-                    Fill User Government Identification Details
-                </button>
+                <FormBackButton
+                    buttonName=" Change Employee Contact Details"
+                    handlePreviousEmployeeDetailsForm={
+                        handlePreviousEmployeeDetailsForm
+                    }
+                />
+                <FormSubmitButton buttonName="Fill User Government Identification Details" />
             </div>
         </form>
     );

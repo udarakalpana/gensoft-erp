@@ -1,13 +1,14 @@
 import React from "react";
-import InputField from "../../../../../common/form/InputField.tsx";
-import SelectInputField from "../../../../../common/form/SelectInputField.tsx";
+import InputField from "../../../../../../common/form/InputField.tsx";
+import SelectInputField from "../../../../../../common/form/SelectInputField.tsx";
 import {
     bloodTypes,
     maritalTypes,
     userGenderTypes,
     userTitle,
-} from "../../../../../../utilities/dynamicValues/userBasicDetailsSelectValues.ts";
-import { EmployeeBasicDetailsFormProp } from "../../../../../../utilities/types/form/UserRegistrationForm/employeeBasicDetailsFormTypes";
+} from "../../../../../../../utilities/dynamicValues/userBasicDetailsSelectValues.ts";
+import { EmployeeBasicDetailsFormProp } from "../../../../../../../utilities/types/form/UserRegistrationForm/employeeBasicDetailsFormTypes";
+import FormSubmitButton from "../common/FormSubmitButton.tsx";
 const EmployeeBasicDetailsForm: React.FC<EmployeeBasicDetailsFormProp> = ({
     handleNextEmployeeDetailsForm,
 }) => {
@@ -103,9 +104,7 @@ const EmployeeBasicDetailsForm: React.FC<EmployeeBasicDetailsFormProp> = ({
                         handleInput={handleBasicDetailsInputField}
                     />
 
-                    <button type="submit" className="dark-btn mt-4">
-                        Fill User Contact Details
-                    </button>
+                    <FormSubmitButton buttonName="Fill Contact Details" />
                 </div>
             </div>
         </form>
