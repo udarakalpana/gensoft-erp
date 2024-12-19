@@ -6,9 +6,15 @@ import {
     EmployeeDetailsFromMapperType,
 } from "../../../../../../utilities/types/form/UserRegistrationForm/addEmployeeFormTypes";
 import EmployeeResidentialDetails from "./employeeResidentialDetails/EmployeeResidentialDetails.tsx";
+import { EmployeeUserBasicDetailsAttributes } from "../../../../../../utilities/form/attributes/EmployeeUserRegisterFormAttributes.ts";
+import { EmployeeBasicDetailsFormAttributesTypes } from "../../../../../../utilities/types/form/UserRegistrationForm/employeeBasicDetailsFormTypes";
 
 const AddEmployeeForm: React.FC = () => {
     const [currentForm, setCurrentForm] = useState<number>(1);
+    const [employeeBasicDetails, setEmployeeBasicDetails] =
+        useState<EmployeeBasicDetailsFormAttributesTypes>(
+            EmployeeUserBasicDetailsAttributes,
+        );
 
     const handleNextEmployeeDetailsForm = (): void => {
         setCurrentForm((prevState) => prevState + 1);
@@ -21,6 +27,8 @@ const AddEmployeeForm: React.FC = () => {
     const employeeDetailsFromMapper: EmployeeDetailsFromMapperType = {
         1: (
             <EmployeeBasicDetailsForm
+                employeeBasicDetails={employeeBasicDetails}
+                setEmployeeBasicDetails={setEmployeeBasicDetails}
                 handleNextEmployeeDetailsForm={handleNextEmployeeDetailsForm}
             />
         ),

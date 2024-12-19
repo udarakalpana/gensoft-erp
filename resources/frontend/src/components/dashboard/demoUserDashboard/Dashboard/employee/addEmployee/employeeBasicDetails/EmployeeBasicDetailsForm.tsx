@@ -9,13 +9,26 @@ import {
 } from "../../../../../../../utilities/dynamicValues/userBasicDetailsSelectValues.ts";
 import { EmployeeBasicDetailsFormProp } from "../../../../../../../utilities/types/form/UserRegistrationForm/employeeBasicDetailsFormTypes";
 import FormSubmitButton from "../common/FormSubmitButton.tsx";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../../../../../store.ts";
+import {addEmployeeBasicDetails} from "../../../../../../../utilities/form/slices/employeeDetailsSlice.ts";
 const EmployeeBasicDetailsForm: React.FC<EmployeeBasicDetailsFormProp> = ({
+    employeeBasicDetails,
+    setEmployeeBasicDetails,
     handleNextEmployeeDetailsForm,
 }) => {
-    const handleBasicDetailsInputField = () => {};
+    const dispatch = useDispatch<AppDispatch>();
+    const handleBasicDetailsInputField = (event) => {
+        const { name, value } = event.target;
+        setEmployeeBasicDetails((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
+    };
 
     const handleBasicDetailsFormSubmit = (event: React.FormEvent) => {
         event.preventDefault();
+        dispatch(addEmployeeBasicDetails(employeeBasicDetails))
         handleNextEmployeeDetailsForm();
     };
     return (

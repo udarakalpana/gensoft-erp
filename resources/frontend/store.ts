@@ -1,17 +1,25 @@
 import {persistReducer, persistStore} from "redux-persist";
-import {configureStore} from "@reduxjs/toolkit";
+import {combineReducers, configureStore} from "@reduxjs/toolkit";
 import storage from 'redux-persist/lib/storage'
 import authSlice from "./src/utilities/auth/authSlice";
+import employeeDetailsSlice from "./src/utilities/form/slices/employeeDetailsSlice.ts";
 
 const persistConfig = {
     key: 'root',
-    storage
+    storage,
+    whitelist: ['auth', 'employeeDetails']
 }
 
-const persistedReducer = persistReducer(persistConfig, authSlice)
+const mainReducer = combineReducers({
+    auth: authSlice,
+    employeeDetails: employeeDetailsSlice,
+})
+
+const persistedReducer = persistReducer(persistConfig, mainReducer)
 
 const store = configureStore({
     reducer: {
+        // this auth name should want to be change
         auth: persistedReducer
     },
     middleware: (getDefaultMiddleware) =>
