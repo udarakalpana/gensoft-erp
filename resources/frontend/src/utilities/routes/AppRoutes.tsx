@@ -8,7 +8,7 @@ import {AppState} from "../../../store.ts";
 const AppRoutes:React.FC = () => {
 
     const checkUserRoleAndIsAuthenticated = (): boolean => {
-        return useSelector((state: AppState) => state.auth.isAuthenticated)
+        return useSelector((state: AppState) => state.erp_store.auth.isAuthenticated)
     }
 
     return (

@@ -20,7 +20,7 @@ const persistedReducer = persistReducer(persistConfig, mainReducer)
 const store = configureStore({
     reducer: {
         // this auth name should want to be change
-        auth: persistedReducer
+        erp_store: persistedReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

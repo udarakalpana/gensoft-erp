@@ -16,7 +16,7 @@ const UserSignIn = () => {
     const dispatch = useDispatch<AppDispatch>();
     const useStateValues: TypedUseSelectorHook<AppState> = useSelector;
     const isAuthenticated = useStateValues(
-        ((state) => state.auth.isAuthenticated)
+        ((state) => state.erp_store.auth.isAuthenticated)
     );
 
     useEffect(() => {
