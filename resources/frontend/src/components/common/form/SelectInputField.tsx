@@ -5,6 +5,7 @@ const SelectInputField: React.FC<SelectInputFieldProps> = ({
     filedName,
     labelName,
     options,
+    defaultValue,
     handleInput,
 }) => {
     return (
@@ -20,7 +21,10 @@ const SelectInputField: React.FC<SelectInputFieldProps> = ({
                 name={filedName}
                 className="form-input_field"
                 onChange={handleInput}
+                defaultValue={defaultValue || ''}
             >
+                {!defaultValue && <option value="">Select</option>}
+
                 {options.map((option) => (
                     <option key={option.value} value={option.value}>
                         {option.option_name}

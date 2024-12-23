@@ -5,8 +5,11 @@ const InputField: React.FC<InputFieldProps> = ({
     filedType,
     filedName,
     labelName,
+    defaultValue,
     handleInput,
 }) => {
+    const isFileInputField = filedType === "file";
+
     return (
         <div className="mb-5">
             <label
@@ -19,9 +22,14 @@ const InputField: React.FC<InputFieldProps> = ({
                 type={filedType}
                 id={filedName}
                 name={filedName}
+                {...(!isFileInputField && {defaultValue: defaultValue || ""})}
                 className="form-input_field"
                 onChange={handleInput}
             />
+
+            {isFileInputField && defaultValue && (
+                <div className='mt-2 text-sm text-gray-600'>{defaultValue}</div>
+            )}
         </div>
     );
 };

@@ -17,12 +17,16 @@ export const employeeDetailsSlice = createSlice({
             state,
             action: PayloadAction<EmployeeBasicDetailsFormAttributesTypes>,
         ) => {
-            state.employeeBasicDetails = action.payload
+            state.employeeBasicDetails = action.payload;
+        },
+        clearEmployeeBasicDetails: (state) => {
+            state.employeeBasicDetails =
+                {} as EmployeeBasicDetailsFormAttributesTypes;
         },
     },
 });
 
-export const { addEmployeeBasicDetails } = employeeDetailsSlice.actions;
+export const { addEmployeeBasicDetails, clearEmployeeBasicDetails } =
+    employeeDetailsSlice.actions;
 
-export default employeeDetailsSlice.reducer
-
+export default employeeDetailsSlice.reducer;
