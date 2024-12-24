@@ -9,7 +9,7 @@ import {
 } from "../../../../../../../utilities/dynamicValues/userBasicDetailsSelectValues.ts";
 import {
     EmployeeBasicDetailsFormAttributesTypes,
-    EmployeeBasicDetailsFormProp
+    EmployeeBasicDetailsFormProp,
 } from "../../../../../../../utilities/types/form/UserRegistrationForm/employeeBasicDetailsFormTypes";
 import FormSubmitButton from "../common/FormSubmitButton.tsx";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
@@ -18,9 +18,7 @@ import {
     addEmployeeBasicDetails,
     clearEmployeeBasicDetails,
 } from "../../../../../../../utilities/form/slices/employeeDetailsSlice.ts";
-import {
-    EmployeeUserBasicDetailsAttributes
-} from "../../../../../../../utilities/form/attributes/EmployeeUserRegisterFormAttributes.ts";
+import { EmployeeUserBasicDetailsAttributes } from "../../../../../../../utilities/form/attributes/EmployeeUserRegisterFormAttributes.ts";
 const EmployeeBasicDetailsForm: React.FC<EmployeeBasicDetailsFormProp> = ({
     employeeBasicDetails,
     setEmployeeBasicDetails,
@@ -29,17 +27,17 @@ const EmployeeBasicDetailsForm: React.FC<EmployeeBasicDetailsFormProp> = ({
     const [
         employeeBasicDetailsAlreadyStore,
         setEmployeeBasicDetailsAlreadyStore,
-    ] = useState<EmployeeBasicDetailsFormAttributesTypes>(EmployeeUserBasicDetailsAttributes);
+    ] = useState<EmployeeBasicDetailsFormAttributesTypes>(
+        EmployeeUserBasicDetailsAttributes,
+    );
     const dispatch = useDispatch<AppDispatch>();
     const useStateValue: TypedUseSelectorHook<AppState> = useSelector;
     const employeeBasicDetailsFromStore = useStateValue(
-        (state) => state.erp_store.employeeDetails,
+        (state) => state.erp_store.employeeDetails.employeeBasicDetails,
     );
 
     useEffect(() => {
-        setEmployeeBasicDetailsAlreadyStore(
-            employeeBasicDetailsFromStore.employeeBasicDetails,
-        );
+        setEmployeeBasicDetailsAlreadyStore(employeeBasicDetailsFromStore);
     }, [employeeBasicDetailsFromStore]);
     const handleBasicDetailsInputField = (
         event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -56,8 +54,6 @@ const EmployeeBasicDetailsForm: React.FC<EmployeeBasicDetailsFormProp> = ({
         dispatch(addEmployeeBasicDetails(employeeBasicDetails));
         handleNextEmployeeDetailsForm();
     };
-
-    console.log(employeeBasicDetailsAlreadyStore.title)
 
     return (
         <form className="w-3/4 m-auto" onSubmit={handleBasicDetailsFormSubmit}>

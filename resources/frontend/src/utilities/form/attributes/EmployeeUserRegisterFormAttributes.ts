@@ -13,3 +13,12 @@ export const EmployeeUserBasicDetailsAttributes = {
     citizenship: "",
     photo: "",
 };
+
+export const EmployeeUserContactDetailsAttributes = {
+    mobile_number: "",
+    telephone_number: "",
+    telegram_id: "",
+    email_address: "",
+    linkedin_account: "",
+    personal_website: "",
+};

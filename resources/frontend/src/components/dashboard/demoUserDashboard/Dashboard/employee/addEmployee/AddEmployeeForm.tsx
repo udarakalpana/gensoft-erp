@@ -6,14 +6,22 @@ import {
     EmployeeDetailsFromMapperType,
 } from "../../../../../../utilities/types/form/UserRegistrationForm/addEmployeeFormTypes";
 import EmployeeResidentialDetails from "./employeeResidentialDetails/EmployeeResidentialDetails.tsx";
-import { EmployeeUserBasicDetailsAttributes } from "../../../../../../utilities/form/attributes/EmployeeUserRegisterFormAttributes.ts";
+import {
+    EmployeeUserBasicDetailsAttributes,
+    EmployeeUserContactDetailsAttributes,
+} from "../../../../../../utilities/form/attributes/EmployeeUserRegisterFormAttributes.ts";
 import { EmployeeBasicDetailsFormAttributesTypes } from "../../../../../../utilities/types/form/UserRegistrationForm/employeeBasicDetailsFormTypes";
+import { EmployeeContactDetailsFormAttributesTypes } from "../../../../../../utilities/types/form/UserRegistrationForm/employeeContactDetailsFormTypes";
 
 const AddEmployeeForm: React.FC = () => {
     const [currentForm, setCurrentForm] = useState<number>(1);
     const [employeeBasicDetails, setEmployeeBasicDetails] =
         useState<EmployeeBasicDetailsFormAttributesTypes>(
             EmployeeUserBasicDetailsAttributes,
+        );
+    const [employeeContactDetails, setEmployeeContactDetails] =
+        useState<EmployeeContactDetailsFormAttributesTypes>(
+            EmployeeUserContactDetailsAttributes,
         );
 
     const handleNextEmployeeDetailsForm = (): void => {
@@ -35,6 +43,8 @@ const AddEmployeeForm: React.FC = () => {
 
         2: (
             <EmployeeContactDetails
+                employeeContactDetails={employeeContactDetails}
+                setEmployeeContactDetails={setEmployeeContactDetails}
                 handleNextEmployeeDetailsForm={handleNextEmployeeDetailsForm}
                 handlePreviousEmployeeDetailsForm={
                     handlePreviousEmployeeDetailsForm
