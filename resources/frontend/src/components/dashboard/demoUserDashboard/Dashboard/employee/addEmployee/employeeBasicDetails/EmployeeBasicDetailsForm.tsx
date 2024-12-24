@@ -19,6 +19,7 @@ import {
     clearEmployeeBasicDetails,
 } from "../../../../../../../utilities/form/slices/employeeDetailsSlice.ts";
 import { EmployeeUserBasicDetailsAttributes } from "../../../../../../../utilities/form/attributes/EmployeeUserRegisterFormAttributes.ts";
+import FormClearButton from "../common/FormClearButton.tsx";
 const EmployeeBasicDetailsForm: React.FC<EmployeeBasicDetailsFormProp> = ({
     employeeBasicDetails,
     setEmployeeBasicDetails,
@@ -169,23 +170,14 @@ const EmployeeBasicDetailsForm: React.FC<EmployeeBasicDetailsFormProp> = ({
                         defaultValue={employeeBasicDetailsAlreadyStore.photo}
                         handleInput={handleBasicDetailsInputField}
                     />
-
-                    <div className="grid grid-cols-2">
-                        <div>
-                            <FormSubmitButton buttonName="Fill Contact Details" />
-                        </div>
-                        <div className="m-4">
-                            <button
-                                type="button"
-                                className="w-full focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
-                                onClick={() =>
-                                    dispatch(clearEmployeeBasicDetails())
-                                }
-                            >
-                                Clear Form
-                            </button>
-                        </div>
-                    </div>
+                </div>
+            </div>
+            <div className="grid grid-cols-2">
+                <div className="m-4">
+                    <FormClearButton storeClear={clearEmployeeBasicDetails} />
+                </div>
+                <div>
+                    <FormSubmitButton buttonName="Fill Contact Details" />
                 </div>
             </div>
         </form>

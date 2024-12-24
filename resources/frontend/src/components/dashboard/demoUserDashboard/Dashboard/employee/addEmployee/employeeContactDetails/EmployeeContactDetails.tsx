@@ -10,9 +10,10 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AppDispatch, AppState } from "../../../../../../../../store.ts";
 import {
     addEmployeeContactDetails,
-    clearEmployeeContactDetails,
+    clearEmployeeContactDetails
 } from "../../../../../../../utilities/form/slices/employeeDetailsSlice.ts";
 import { EmployeeUserContactDetailsAttributes } from "../../../../../../../utilities/form/attributes/EmployeeUserRegisterFormAttributes.ts";
+import FormClearButton from "../common/FormClearButton.tsx";
 const EmployeeContactDetails: React.FC<EmployeeContactDetailsFormProp> = ({
     employeeContactDetails,
     setEmployeeContactDetails,
@@ -115,27 +116,22 @@ const EmployeeContactDetails: React.FC<EmployeeContactDetailsFormProp> = ({
                         handleInput={handleBasicDetailsInputField}
                     />
                 </div>
-                <FormBackButton
-                    buttonName="Change Employee Basic Details"
-                    handlePreviousEmployeeDetailsForm={
-                        handlePreviousEmployeeDetailsForm
-                    }
-                />
-                <div className="grid grid-cols-2">
-                    <div>
-                        <FormSubmitButton buttonName="Fill User Residential Details" />
-                    </div>
-                    <div className="m-4">
-                        <button
-                            type="button"
-                            className="w-full focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
-                            onClick={() =>
-                                dispatch(clearEmployeeContactDetails())
-                            }
-                        >
-                            Clear Form
-                        </button>
-                    </div>
+            </div>
+
+            <div className="grid grid-cols-3 justify-items-center">
+                <div className="m-4">
+                    <FormBackButton
+                        buttonName="Employee Basic Details"
+                        handlePreviousEmployeeDetailsForm={
+                            handlePreviousEmployeeDetailsForm
+                        }
+                    />
+                </div>
+                <div>
+                    <FormSubmitButton buttonName="Fill User Residential Details" />
+                </div>
+                <div className="m-4">
+                    <FormClearButton storeClear={clearEmployeeContactDetails} />
                 </div>
             </div>
         </form>
