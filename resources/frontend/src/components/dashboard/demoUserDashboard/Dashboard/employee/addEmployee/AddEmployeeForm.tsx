@@ -9,9 +9,11 @@ import EmployeeResidentialDetails from "./employeeResidentialDetails/EmployeeRes
 import {
     EmployeeUserBasicDetailsAttributes,
     EmployeeUserContactDetailsAttributes,
+    EmployeeUserResidentialDetailsAttributes,
 } from "../../../../../../utilities/form/attributes/EmployeeUserRegisterFormAttributes.ts";
 import { EmployeeBasicDetailsFormAttributesTypes } from "../../../../../../utilities/types/form/UserRegistrationForm/employeeBasicDetailsFormTypes";
 import { EmployeeContactDetailsFormAttributesTypes } from "../../../../../../utilities/types/form/UserRegistrationForm/employeeContactDetailsFormTypes";
+import { EmployeeResidentialDetailsFormAttributeTypes } from "../../../../../../utilities/types/form/UserRegistrationForm/employeeUserResidentialDetailsFormTypes";
 
 const AddEmployeeForm: React.FC = () => {
     const [currentForm, setCurrentForm] = useState<number>(1);
@@ -22,6 +24,10 @@ const AddEmployeeForm: React.FC = () => {
     const [employeeContactDetails, setEmployeeContactDetails] =
         useState<EmployeeContactDetailsFormAttributesTypes>(
             EmployeeUserContactDetailsAttributes,
+        );
+    const [employeeResidentialDetails, setEmployeeResidentialDetails] =
+        useState<EmployeeResidentialDetailsFormAttributeTypes>(
+            EmployeeUserResidentialDetailsAttributes,
         );
 
     const handleNextEmployeeDetailsForm = (): void => {
@@ -54,6 +60,8 @@ const AddEmployeeForm: React.FC = () => {
 
         3: (
             <EmployeeResidentialDetails
+                employeeResidentialDetails={employeeResidentialDetails}
+                setEmployeeResidentialDetails={setEmployeeResidentialDetails}
                 handleNextEmployeeDetailsForm={handleNextEmployeeDetailsForm}
                 handlePreviousEmployeeDetailsForm={
                     handlePreviousEmployeeDetailsForm

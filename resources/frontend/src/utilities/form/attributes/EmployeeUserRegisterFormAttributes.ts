@@ -22,3 +22,11 @@ export const EmployeeUserContactDetailsAttributes = {
     linkedin_account: "",
     personal_website: "",
 };
+
+export const EmployeeUserResidentialDetailsAttributes = {
+    address_line_1: "",
+    address_line_2: "",
+    city: "",
+    country: "",
+    postal_code: "",
+};

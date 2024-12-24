@@ -1,15 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { EmployeeBasicDetailsFormAttributesTypes } from "../../types/form/UserRegistrationForm/employeeBasicDetailsFormTypes";
 import { EmployeeContactDetailsFormAttributesTypes } from "../../types/form/UserRegistrationForm/employeeContactDetailsFormTypes";
+import { EmployeeResidentialDetailsFormAttributeTypes } from "../../types/form/UserRegistrationForm/employeeUserResidentialDetailsFormTypes";
 
 interface InitialStateTypes {
     employeeBasicDetails: EmployeeBasicDetailsFormAttributesTypes;
     employeeContactDetails: EmployeeContactDetailsFormAttributesTypes;
+    employeeResidentialDetails: EmployeeResidentialDetailsFormAttributeTypes;
 }
 
 const initialState: InitialStateTypes = {
     employeeBasicDetails: {} as EmployeeBasicDetailsFormAttributesTypes,
     employeeContactDetails: {} as EmployeeContactDetailsFormAttributesTypes,
+    employeeResidentialDetails:
+        {} as EmployeeResidentialDetailsFormAttributeTypes,
 };
 
 export const employeeDetailsSlice = createSlice({
@@ -37,14 +41,27 @@ export const employeeDetailsSlice = createSlice({
             state.employeeContactDetails =
                 {} as EmployeeContactDetailsFormAttributesTypes;
         },
+
+        addEmployeeResidentialDetails: (
+            state,
+            action: PayloadAction<EmployeeResidentialDetailsFormAttributeTypes>,
+        ) => {
+            state.employeeResidentialDetails = action.payload;
+        },
+        clearEmployeeResidentialDetails: (state) => {
+            state.employeeResidentialDetails =
+                {} as EmployeeResidentialDetailsFormAttributeTypes;
+        },
     },
 });
 
 export const {
     addEmployeeBasicDetails,
     addEmployeeContactDetails,
+    addEmployeeResidentialDetails,
     clearEmployeeBasicDetails,
     clearEmployeeContactDetails,
+    clearEmployeeResidentialDetails,
 } = employeeDetailsSlice.actions;
 
 export default employeeDetailsSlice.reducer;
