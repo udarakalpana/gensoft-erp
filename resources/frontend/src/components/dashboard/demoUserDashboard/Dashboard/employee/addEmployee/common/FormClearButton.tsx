@@ -1,7 +1,7 @@
 import React from "react";import { useDispatch } from "react-redux";
-import {AppAction, AppDispatch} from "../../../../../../../../store.ts";
+import {AppDispatch} from "../../../../../../../../store.ts";
 interface FormClearButtonProps {
-    storeClear: AppAction // Need to define proper type definition according to the store.
+    storeClear: any // Need to define proper type definition according to the store.
 }
 
 const FormClearButton: React.FC<FormClearButtonProps> = ({ storeClear }) => {

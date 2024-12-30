@@ -24,3 +24,7 @@ export const bloodTypes: UserTypes[] = [
     { value: "O+", option_name: "O+" },
     { value: "O-", option_name: "O-" },
 ];
+
+export const category1: UserTypes[] = [
+    { value: "primary", option_name: "Primary" },
+];

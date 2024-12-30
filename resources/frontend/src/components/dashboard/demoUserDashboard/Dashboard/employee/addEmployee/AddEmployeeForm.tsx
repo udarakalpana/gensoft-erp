@@ -14,6 +14,7 @@ import {
 import { EmployeeBasicDetailsFormAttributesTypes } from "../../../../../../utilities/types/form/UserRegistrationForm/employeeBasicDetailsFormTypes";
 import { EmployeeContactDetailsFormAttributesTypes } from "../../../../../../utilities/types/form/UserRegistrationForm/employeeContactDetailsFormTypes";
 import { EmployeeResidentialDetailsFormAttributeTypes } from "../../../../../../utilities/types/form/UserRegistrationForm/employeeUserResidentialDetailsFormTypes";
+import EmployeeEducationDetails from "./employeeEducationDetails/EmployeeEducationDetails.tsx";
 
 const AddEmployeeForm: React.FC = () => {
     const [currentForm, setCurrentForm] = useState<number>(1);
@@ -68,6 +69,10 @@ const AddEmployeeForm: React.FC = () => {
                 }
             />
         ),
+
+        4: (
+            <EmployeeEducationDetails />
+        )
     };
 
     const renderEmployeeDetailsForms = () => {
