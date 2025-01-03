@@ -10,7 +10,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { AppDispatch, AppState } from "../../../../../../../../store.ts";
 import { EmployeeUserResidentialDetailsAttributes } from "../../../../../../../utilities/form/attributes/EmployeeUserRegisterFormAttributes.ts";
 import {
-    addEmployeeResidentialDetails, clearEmployeeBasicDetails,
+    addEmployeeResidentialDetails,
     clearEmployeeResidentialDetails,
 } from "../../../../../../../utilities/form/slices/employeeDetailsSlice.ts";
 import FormClearButton from "../common/FormClearButton.tsx";

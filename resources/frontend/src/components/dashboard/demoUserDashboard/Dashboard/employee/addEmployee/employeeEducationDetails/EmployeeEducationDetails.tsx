@@ -1,11 +1,25 @@
 import React, { useState } from "react";
 import EmployeeEducationDetailsForm from "./EmployeeEducationDetailsForm.tsx";
 import {
+    EducationDetailsPropsTypes,
     EducationDetailsTypes
 } from "../../../../../../../utilities/types/form/UserRegistrationForm/employeeEducationDetailsTypes";
+import {
+    addEmployeeEducationDetails,
+    clearEmployeeEducationDetails,
+} from "../../../../../../../utilities/form/slices/employeeDetailsSlice.ts";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../../../../../store.ts";
+import FormClearButton from "../common/FormClearButton.tsx";
+import FormBackButton from "../common/FormBackButton.tsx";
+import FormSubmitButton from "../common/FormSubmitButton.tsx";
 
-const EmployeeEducationDetails: React.FC = () => {
-    const [educationDetails, setEducationDetails] = useState<EducationDetailsTypes[]>([
+const EmployeeEducationDetails: React.FC<EducationDetailsPropsTypes> = ({
+    handlePreviousEmployeeDetailsForm,
+}) => {
+    const [educationDetails, setEducationDetails] = useState<
+        EducationDetailsTypes[]
+    >([
         {
             category1: "",
             school1: "",
@@ -13,6 +27,7 @@ const EmployeeEducationDetails: React.FC = () => {
             school2: "",
         },
     ]);
+    const dispatch = useDispatch<AppDispatch>();
 
     const handleEducationDetailsInputField = (
         event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -24,14 +39,11 @@ const EmployeeEducationDetails: React.FC = () => {
 
         const educationDetailsCopy = [...educationDetails];
         educationDetailsCopy[index][filedName] = value;
-
     };
-
-
 
     const getPropertyNameFromFieldName = (name: string) => {
         return name.split("_").slice(0, 1).join("_");
-    }
+    };
 
     const addNewEducationDetailsForm = () => {
         setEducationDetails((prevState) => [
@@ -45,8 +57,19 @@ const EmployeeEducationDetails: React.FC = () => {
         ]);
     };
 
+    const removeEducationDetailsForm = (index: number) => {
+        educationDetails.splice(index, 1);
+        setEducationDetails([...educationDetails]);
+    };
+
+    const handleBasicDetailsFormSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        dispatch(addEmployeeEducationDetails(educationDetails));
+        //handleNextEmployeeDetailsForm();
+    };
+
     return (
-        <form className="w-3/4 m-auto">
+        <form className="w-3/4 m-auto" onSubmit={handleBasicDetailsFormSubmit}>
             <h1 className="text-2xl font-bold mb-4">
                 Employee Education Details
             </h1>
@@ -55,8 +78,33 @@ const EmployeeEducationDetails: React.FC = () => {
             </button>
             <EmployeeEducationDetailsForm
                 educationDetails={educationDetails}
-                handleEducationDetailsInputField={handleEducationDetailsInputField}
+                handleEducationDetailsInputField={
+                    handleEducationDetailsInputField
+                }
+                removeEducationDetailsForm={removeEducationDetailsForm}
+                handlePreviousEmployeeDetailsForm={
+                    handlePreviousEmployeeDetailsForm
+                }
             />
+            <div className="grid grid-cols-3 justify-items-center">
+                <div className="m-4">
+                    <FormClearButton
+                        storeClear={clearEmployeeEducationDetails}
+                    />
+                </div>
+
+                <div className="m-4">
+                    <FormBackButton
+                        buttonName="Change Employee Residential Details"
+                        handlePreviousEmployeeDetailsForm={
+                            handlePreviousEmployeeDetailsForm
+                        }
+                    />
+                </div>
+                <div>
+                    <FormSubmitButton buttonName="Fill User Government Identification Details" />
+                </div>
+            </div>
         </form>
     );
 };

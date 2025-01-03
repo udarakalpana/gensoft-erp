@@ -71,7 +71,11 @@ const AddEmployeeForm: React.FC = () => {
         ),
 
         4: (
-            <EmployeeEducationDetails />
+            <EmployeeEducationDetails
+                handlePreviousEmployeeDetailsForm={
+                    handlePreviousEmployeeDetailsForm
+                }
+            />
         )
     };
 

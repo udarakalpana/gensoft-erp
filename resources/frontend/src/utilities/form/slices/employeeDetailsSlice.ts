@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { EmployeeBasicDetailsFormAttributesTypes } from "../../types/form/UserRegistrationForm/employeeBasicDetailsFormTypes";
 import { EmployeeContactDetailsFormAttributesTypes } from "../../types/form/UserRegistrationForm/employeeContactDetailsFormTypes";
 import { EmployeeResidentialDetailsFormAttributeTypes } from "../../types/form/UserRegistrationForm/employeeUserResidentialDetailsFormTypes";
+import {EducationDetailsTypes} from "../../types/form/UserRegistrationForm/employeeEducationDetailsTypes";
 
 interface InitialStateTypes {
     employeeBasicDetails: EmployeeBasicDetailsFormAttributesTypes;
     employeeContactDetails: EmployeeContactDetailsFormAttributesTypes;
     employeeResidentialDetails: EmployeeResidentialDetailsFormAttributeTypes;
+    employeeEducationDetails: EducationDetailsTypes[];
 }
 
 const initialState: InitialStateTypes = {
@@ -14,6 +16,7 @@ const initialState: InitialStateTypes = {
     employeeContactDetails: {} as EmployeeContactDetailsFormAttributesTypes,
     employeeResidentialDetails:
         {} as EmployeeResidentialDetailsFormAttributeTypes,
+    employeeEducationDetails: [] as EducationDetailsTypes[],
 };
 
 export const employeeDetailsSlice = createSlice({
@@ -52,6 +55,16 @@ export const employeeDetailsSlice = createSlice({
             state.employeeResidentialDetails =
                 {} as EmployeeResidentialDetailsFormAttributeTypes;
         },
+
+        addEmployeeEducationDetails: (
+            state,
+            action: PayloadAction<EducationDetailsTypes[]>,
+        ) => {
+            state.employeeEducationDetails = action.payload;
+        },
+        clearEmployeeEducationDetails: (state) => {
+            state.employeeEducationDetails = [] as EducationDetailsTypes[];
+        },
     },
 });
 
@@ -59,9 +72,11 @@ export const {
     addEmployeeBasicDetails,
     addEmployeeContactDetails,
     addEmployeeResidentialDetails,
+    addEmployeeEducationDetails,
     clearEmployeeBasicDetails,
     clearEmployeeContactDetails,
     clearEmployeeResidentialDetails,
+    clearEmployeeEducationDetails,
 } = employeeDetailsSlice.actions;
 
 export default employeeDetailsSlice.reducer;
