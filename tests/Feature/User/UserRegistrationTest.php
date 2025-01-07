@@ -27,21 +27,19 @@ it('test user can register', function () {
 
     $employeeUserResidentialDetails = UserResidentialDetail::factory()->make()->toArray();
     $employeeUserContactInformation = UserContactInformation::factory()->make()->toArray();
-    $employeeUserGovernmentIndentificationDetails = GovernmentIdentificationDetail::factory()->make()->toArray();
-    $employeeUserEmegerncyContactDetails = EmegencyContactPersonDetail::factory()->make()->toArray();
+//    $employeeUserGovernmentIndentificationDetails = GovernmentIdentificationDetail::factory()->make()->toArray();
+//    $employeeUserEmegerncyContactDetails = EmegencyContactPersonDetail::factory()->make()->toArray();
 
 
-    $employeeUserAllDetails = [];
 
-    $employeeUserAllFormSubmitData =  collect([
-        $employeeUser,
-        $employeeUserResidentialDetails,
-        $employeeUserContactInformation,
-        $employeeUserGovernmentIndentificationDetails,
-        $employeeUserEmegerncyContactDetails,
-    ])->flatMap(function ($item) use ($employeeUserAllDetails) {
-        return array_merge($item, $employeeUserAllDetails);
-    })->toArray();
+
+    $employeeUserAllFormSubmitData = [
+        'employeeBasicDetails' => $employeeUser,
+        'employeeContactDetails' => $employeeUserContactInformation,
+        'employeeResidentialDetails' => $employeeUserResidentialDetails,
+        'employeeEducationDetails' => $employeeUserGovernmentIndentificationDetails,
+
+    ];
 
     $response = $this->post('api/user-register', $employeeUserAllFormSubmitData);
 

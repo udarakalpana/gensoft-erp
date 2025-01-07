@@ -8,11 +8,12 @@ import {
     addEmployeeEducationDetails,
     clearEmployeeEducationDetails,
 } from "../../../../../../../utilities/form/slices/employeeDetailsSlice.ts";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../../../../../store.ts";
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {AppDispatch, AppState} from "../../../../../../../../store.ts";
 import FormClearButton from "../common/FormClearButton.tsx";
 import FormBackButton from "../common/FormBackButton.tsx";
 import FormSubmitButton from "../common/FormSubmitButton.tsx";
+import axios from "axios";
 
 const EmployeeEducationDetails: React.FC<EducationDetailsPropsTypes> = ({
     handlePreviousEmployeeDetailsForm,
@@ -28,6 +29,8 @@ const EmployeeEducationDetails: React.FC<EducationDetailsPropsTypes> = ({
         },
     ]);
     const dispatch = useDispatch<AppDispatch>();
+    const useStateValue: TypedUseSelectorHook<AppState> = useSelector;
+    const allEmployeeDetails = useStateValue((state) => state.erp_store.employeeDetails)
 
     const handleEducationDetailsInputField = (
         event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -65,8 +68,21 @@ const EmployeeEducationDetails: React.FC<EducationDetailsPropsTypes> = ({
     const handleBasicDetailsFormSubmit = (event: React.FormEvent) => {
         event.preventDefault();
         dispatch(addEmployeeEducationDetails(educationDetails));
-        //handleNextEmployeeDetailsForm();
+
+        handleEmployeeDetailsSubmit()
     };
+
+    const handleEmployeeDetailsSubmit = async () => {
+        console.log({allEmployeeDetails})
+
+        // endpoint calling
+        await axios.post('api/user-register', allEmployeeDetails, {
+            headers: {
+                'content-Type': 'multipart/form-data',
+            }
+        })
+
+    }
 
     return (
         <form className="w-3/4 m-auto" onSubmit={handleBasicDetailsFormSubmit}>
