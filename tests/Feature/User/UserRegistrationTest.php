@@ -4,6 +4,7 @@ use App\Models\EmegencyContactPersonDetail;
 use App\Models\GovernmentIdentificationDetail;
 use App\Models\User;
 use App\Models\UserContactInformation;
+use App\Models\UserEducationDetails;
 use App\Models\UserResidentialDetail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
@@ -27,6 +28,7 @@ it('test user can register', function () {
 
     $employeeUserResidentialDetails = UserResidentialDetail::factory()->make()->toArray();
     $employeeUserContactInformation = UserContactInformation::factory()->make()->toArray();
+    $employeeUserEducationDetails = UserEducationDetails::factory(2)->make()->toArray();
 //    $employeeUserGovernmentIndentificationDetails = GovernmentIdentificationDetail::factory()->make()->toArray();
 //    $employeeUserEmegerncyContactDetails = EmegencyContactPersonDetail::factory()->make()->toArray();
 
@@ -37,11 +39,11 @@ it('test user can register', function () {
         'employeeBasicDetails' => $employeeUser,
         'employeeContactDetails' => $employeeUserContactInformation,
         'employeeResidentialDetails' => $employeeUserResidentialDetails,
-        'employeeEducationDetails' => $employeeUserGovernmentIndentificationDetails,
-
+        'employeeEducationDetails' => $employeeUserEducationDetails,
     ];
 
     $response = $this->post('api/user-register', $employeeUserAllFormSubmitData);
+
 
     $response->assertStatus(200);
     $response->assertJsonStructure([
@@ -81,22 +83,35 @@ it('test user can register', function () {
         'linkedin_account' => $employeeUserContactInformation['linkedin_account'],
         'personal_website' => $employeeUserContactInformation['personal_website'],
     ]);
-    $this->assertDatabaseHas('government_identification_details', [
-        'epf' => $employeeUserGovernmentIndentificationDetails['epf'],
-        'tax_file' => $employeeUserGovernmentIndentificationDetails['tax_file'],
-        'tin' => $employeeUserGovernmentIndentificationDetails['tin'],
-        'nic' => $employeeUserGovernmentIndentificationDetails['nic'],
-        'driving_license' => $employeeUserGovernmentIndentificationDetails['driving_license'],
-        'passport_number' => $employeeUserGovernmentIndentificationDetails['passport_number'],
+    $this->assertDatabaseHas('user_education_details', [
+        'category1' => $employeeUserEducationDetails[0]['category1'],
+        'school1' => $employeeUserEducationDetails[0]['school1'],
+        'category2' => $employeeUserEducationDetails[0]['category2'],
+        'school2' => $employeeUserEducationDetails[0]['school2'],
     ]);
-    $this->assertDatabaseHas('emegerncy_person_contact_details', [
-        'name' => $employeeUserEmegerncyContactDetails['name'],
-        'address' => $employeeUserEmegerncyContactDetails['address'],
-        'emegerncy_person_telephone_number' => $employeeUserEmegerncyContactDetails['emegerncy_person_telephone_number'],
-        'emegerncy_person_mobile_number' => $employeeUserEmegerncyContactDetails['emegerncy_person_mobile_number'],
-        'emegerncy_person_email_address' => $employeeUserEmegerncyContactDetails['emegerncy_person_email_address'],
-        'relationship' => $employeeUserEmegerncyContactDetails['relationship'],
+    $this->assertDatabaseHas('user_education_details', [
+        'category1' => $employeeUserEducationDetails[1]['category1'],
+        'school1' => $employeeUserEducationDetails[1]['school1'],
+        'category2' => $employeeUserEducationDetails[1]['category2'],
+        'school2' => $employeeUserEducationDetails[1]['school2'],
     ]);
+
+//    $this->assertDatabaseHas('government_identification_details', [
+//        'epf' => $employeeUserGovernmentIndentificationDetails['epf'],
+//        'tax_file' => $employeeUserGovernmentIndentificationDetails['tax_file'],
+//        'tin' => $employeeUserGovernmentIndentificationDetails['tin'],
+//        'nic' => $employeeUserGovernmentIndentificationDetails['nic'],
+//        'driving_license' => $employeeUserGovernmentIndentificationDetails['driving_license'],
+//        'passport_number' => $employeeUserGovernmentIndentificationDetails['passport_number'],
+//    ]);
+//    $this->assertDatabaseHas('emegerncy_person_contact_details', [
+//        'name' => $employeeUserEmegerncyContactDetails['name'],
+//        'address' => $employeeUserEmegerncyContactDetails['address'],
+//        'emegerncy_person_telephone_number' => $employeeUserEmegerncyContactDetails['emegerncy_person_telephone_number'],
+//        'emegerncy_person_mobile_number' => $employeeUserEmegerncyContactDetails['emegerncy_person_mobile_number'],
+//        'emegerncy_person_email_address' => $employeeUserEmegerncyContactDetails['emegerncy_person_email_address'],
+//        'relationship' => $employeeUserEmegerncyContactDetails['relationship'],
+//    ]);
 });
 
 it('test return bad response if user registration is getting failed', function () {

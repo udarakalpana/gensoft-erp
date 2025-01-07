@@ -31,55 +31,66 @@ class UserRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => $this->commonRulesWithRequired,
-            'initials' => $this->commonRulesWithoutRequired,
-            'first_name' => $this->commonRulesWithRequired,
-            'middle_name' => $this->commonRulesWithoutRequired,
-            'last_name' => $this->commonRulesWithRequired,
-            'nickname' => $this->commonRulesWithoutRequired,
-            'date_of_birth' => $this->commonRulesWithoutRequired,
-            'place_of_birth' => $this->commonRulesWithoutRequired,
-            'gender' => $this->commonRulesWithoutRequired,
-            'marital_status' => $this->commonRulesWithoutRequired,
-            'blood_type' =>$this->commonRulesWithoutRequired,
-            'citizenship' => $this->commonRulesWithoutRequired,
-            'photo' => $this->commonRulesWithoutRequired,
+            'employeeBasicDetails' => 'required|array',
+            'employeeBasicDetails.title' => $this->commonRulesWithRequired,
+            'employeeBasicDetails.initials' => $this->commonRulesWithoutRequired,
+            'employeeBasicDetails.first_name' => $this->commonRulesWithRequired,
+            'employeeBasicDetails.middle_name' => $this->commonRulesWithoutRequired,
+            'employeeBasicDetails.last_name' => $this->commonRulesWithRequired,
+            'employeeBasicDetails.nickname' => $this->commonRulesWithoutRequired,
+            'employeeBasicDetails.date_of_birth' => $this->commonRulesWithoutRequired,
+            'employeeBasicDetails.place_of_birth' => $this->commonRulesWithoutRequired,
+            'employeeBasicDetails.gender' => $this->commonRulesWithoutRequired,
+            'employeeBasicDetails.marital_status' => $this->commonRulesWithoutRequired,
+            'employeeBasicDetails.blood_type' =>$this->commonRulesWithoutRequired,
+            'employeeBasicDetails.citizenship' => $this->commonRulesWithoutRequired,
+            'employeeBasicDetails.photo' => $this->commonRulesWithoutRequired,
 
-            'user_name' => $this->commonRulesWithRequired,
-            'email' => $this->commonRulesWithRequired,
-            'role' => ['required', 'integer', 'min:0', 'max:10'],
-            'password' => ['required', Rules\Password::default()],
+            'employeeBasicDetails.user_name' => $this->commonRulesWithRequired,
+            'employeeBasicDetails.email' => $this->commonRulesWithRequired,
+            'employeeBasicDetails.role' => ['required', 'integer', 'min:0', 'max:10'],
+            'employeeBasicDetails.password' => ['required', Rules\Password::default()],
 
-            // User residentials details
-            'address_line_1' => $this->commonRulesWithoutRequired,
-            'address_line_2' => $this->commonRulesWithoutRequired,
-            'city' => $this->commonRulesWithoutRequired,
-            'country' => $this->commonRulesWithoutRequired,
-            'postal_code' => $this->commonRulesWithoutRequired,
 
-            // User contact information
-            'mobile_number' => $this->commonRulesWithoutRequired,
-            'telephone_number' => $this->commonRulesWithoutRequired,
-            'telegram_id' => $this->commonRulesWithoutRequired,
-            'email_address' => $this->commonRulesWithoutRequired,
-            'linkedin_account' => $this->commonRulesWithoutRequired,
-            'personal_website' => $this->commonRulesWithoutRequired,
+          // User residentials details
+            'employeeResidentialDetails' => 'required|array',
+            'employeeResidentialDetails.address_line_1' => $this->commonRulesWithoutRequired,
+            'employeeResidentialDetails.address_line_2' => $this->commonRulesWithoutRequired,
+            'employeeResidentialDetails.city' => $this->commonRulesWithoutRequired,
+            'employeeResidentialDetails.country' => $this->commonRulesWithoutRequired,
+            'employeeResidentialDetails.postal_code' => $this->commonRulesWithoutRequired,
 
-            // User government identification details
-            'epf' => $this->commonNumberRulesWithoutRequired,
-            'tax_file' => $this->commonNumberRulesWithoutRequired,
-            'tin' => $this->commonNumberRulesWithoutRequired,
-            'nic' => $this->commonNumberRulesWithoutRequired,
-            'driving_license' => $this->commonNumberRulesWithoutRequired,
-            'passport_number' => $this->commonNumberRulesWithoutRequired,
+           // User contact information
+            'employeeContactDetails' => 'required|array',
+            'employeeContactDetails.mobile_number' => $this->commonRulesWithoutRequired,
+            'employeeContactDetails.telephone_number' => $this->commonRulesWithoutRequired,
+            'employeeContactDetails.telegram_id' => $this->commonRulesWithoutRequired,
+            'employeeContactDetails.email_address' => $this->commonRulesWithoutRequired,
+            'employeeContactDetails.linkedin_account' => $this->commonRulesWithoutRequired,
+            'employeeContactDetails.personal_website' => $this->commonRulesWithoutRequired,
 
-            // User emegency person details
-            'name' => $this->commonRulesWithoutRequired,
-            'address' => $this->commonRulesWithoutRequired,
-            'emegerncy_person_telephone_number' => $this->commonRulesWithoutRequired,
-            'emegerncy_person_mobile_number' => $this->commonRulesWithoutRequired,
-            'emegerncy_person_email_address' => $this->commonRulesWithoutRequired,
-            'relationship' => $this->commonRulesWithoutRequired,
+            // User education details
+            'employeeEducationDetails' => 'required|array',
+            'employeeEducationDetails.*.category1' => $this->commonRulesWithoutRequired,
+            'employeeEducationDetails.*.school1' => $this->commonRulesWithoutRequired,
+            'employeeEducationDetails.*.category2' => $this->commonRulesWithoutRequired,
+            'employeeEducationDetails.*.school2' => $this->commonRulesWithoutRequired,
+//
+//            // User government identification details
+//            'epf' => $this->commonNumberRulesWithoutRequired,
+//            'tax_file' => $this->commonNumberRulesWithoutRequired,
+//            'tin' => $this->commonNumberRulesWithoutRequired,
+//            'nic' => $this->commonNumberRulesWithoutRequired,
+//            'driving_license' => $this->commonNumberRulesWithoutRequired,
+//            'passport_number' => $this->commonNumberRulesWithoutRequired,
+//
+//            // User emegency person details
+//            'name' => $this->commonRulesWithoutRequired,
+//            'address' => $this->commonRulesWithoutRequired,
+//            'emegerncy_person_telephone_number' => $this->commonRulesWithoutRequired,
+//            'emegerncy_person_mobile_number' => $this->commonRulesWithoutRequired,
+//            'emegerncy_person_email_address' => $this->commonRulesWithoutRequired,
+//            'relationship' => $this->commonRulesWithoutRequired,
         ];
     }
 

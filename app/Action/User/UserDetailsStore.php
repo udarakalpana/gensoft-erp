@@ -6,8 +6,10 @@ use App\Models\EmegencyContactPersonDetail;
 use App\Models\GovernmentIdentificationDetail;
 use App\Models\User;
 use App\Models\UserContactInformation;
+use App\Models\UserEducationDetails;
 use App\Models\UserResidentialDetail;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class UserDetailsStore
@@ -17,12 +19,13 @@ class UserDetailsStore
     // ***********************************************
     public function UserBasicDetailsStore(array $validatedUserRegisterRequest): void
     {
-        $userId = $this->StoreUserBasicDetailsAndGetUserId($validatedUserRegisterRequest);
+        $userId = $this->StoreUserBasicDetailsAndGetUserId($validatedUserRegisterRequest['employeeBasicDetails']);
 
-       $this->UserResidentialDetailStore($userId, $validatedUserRegisterRequest);
-       $this->UserContactInformationStore($userId, $validatedUserRegisterRequest);
-       $this->UserGovernmentIdentificationDetailsStore($userId, $validatedUserRegisterRequest);
-       $this->UserEmegerncyPersonDetailsStore($userId, $validatedUserRegisterRequest);
+       $this->UserResidentialDetailStore($userId, $validatedUserRegisterRequest['employeeResidentialDetails']);
+       $this->UserContactInformationStore($userId, $validatedUserRegisterRequest['employeeContactDetails']);
+       $this->UserEducationDetailsStore($userId, $validatedUserRegisterRequest['employeeEducationDetails']);
+//       $this->UserGovernmentIdentificationDetailsStore($userId, $validatedUserRegisterRequest);
+//       $this->UserEmegerncyPersonDetailsStore($userId, $validatedUserRegisterRequest);
     }
 
     private function StoreUserBasicDetailsAndGetUserId(array $validatedUserRegisterRequest): string
@@ -76,30 +79,43 @@ class UserDetailsStore
         ]);
     }
 
-    private function UserGovernmentIdentificationDetailsStore(string $userId, array $validatedUserRegisterRequest): void
+    private function UserEducationDetailsStore(string $userId, array $validatedUserRegisterRequest): void
     {
-        GovernmentIdentificationDetail::create([
-            'user_id' => $userId,
-            'epf' => $validatedUserRegisterRequest['epf'],
-            'tax_file' => $validatedUserRegisterRequest['tax_file'],
-            'tin' => $validatedUserRegisterRequest['tin'],
-            'nic' => $validatedUserRegisterRequest['nic'],
-            'driving_license' => $validatedUserRegisterRequest['driving_license'],
-            'passport_number' => $validatedUserRegisterRequest['passport_number'],
-        ]);
-
+        foreach ($validatedUserRegisterRequest as $educationDetails) {
+            UserEducationDetails::create([
+                'user_id' => $userId,
+                'category1' => $educationDetails['category1'],
+                'school1' => $educationDetails['school1'],
+                'category2' => $educationDetails['category2'],
+                'school2' => $educationDetails['school2'],
+            ]);
+        }
     }
 
-    private function UserEmegerncyPersonDetailsStore(string $userId, array $validatedUserRegisterRequest): void
-    {
-        EmegencyContactPersonDetail::create([
-            'user_id' => $userId,
-            'name' => $validatedUserRegisterRequest['name'],
-            'address' => $validatedUserRegisterRequest['address'],
-            'emegerncy_person_telephone_number' => $validatedUserRegisterRequest['emegerncy_person_telephone_number'],
-            'emegerncy_person_mobile_number' => $validatedUserRegisterRequest['emegerncy_person_mobile_number'],
-            'emegerncy_person_email_address' => $validatedUserRegisterRequest['emegerncy_person_email_address'],
-            'relationship' => $validatedUserRegisterRequest['relationship'],
-        ]);
-    }
+//    private function UserGovernmentIdentificationDetailsStore(string $userId, array $validatedUserRegisterRequest): void
+//    {
+//        GovernmentIdentificationDetail::create([
+//            'user_id' => $userId,
+//            'epf' => $validatedUserRegisterRequest['epf'],
+//            'tax_file' => $validatedUserRegisterRequest['tax_file'],
+//            'tin' => $validatedUserRegisterRequest['tin'],
+//            'nic' => $validatedUserRegisterRequest['nic'],
+//            'driving_license' => $validatedUserRegisterRequest['driving_license'],
+//            'passport_number' => $validatedUserRegisterRequest['passport_number'],
+//        ]);
+//
+//    }
+
+//    private function UserEmegerncyPersonDetailsStore(string $userId, array $validatedUserRegisterRequest): void
+//    {
+//        EmegencyContactPersonDetail::create([
+//            'user_id' => $userId,
+//            'name' => $validatedUserRegisterRequest['name'],
+//            'address' => $validatedUserRegisterRequest['address'],
+//            'emegerncy_person_telephone_number' => $validatedUserRegisterRequest['emegerncy_person_telephone_number'],
+//            'emegerncy_person_mobile_number' => $validatedUserRegisterRequest['emegerncy_person_mobile_number'],
+//            'emegerncy_person_email_address' => $validatedUserRegisterRequest['emegerncy_person_email_address'],
+//            'relationship' => $validatedUserRegisterRequest['relationship'],
+//        ]);
+//    }
 }

@@ -13,10 +13,11 @@ class UserController extends Controller
 {
     public function userRegister(
         UserRegister $userRegister,
-        Request $request
+        UserRegisterRequest $request
     ): JsonResponse {
-        Log::info($request->all());
-//        $validatedUserRegisterRequest = $request->validated();
+        $validatedUserRegisterRequest = $request->validated();
+
+        Log::info($validatedUserRegisterRequest);
 
         if ($validatedUserRegisterRequest) {
             return response()->json($userRegister($validatedUserRegisterRequest));
